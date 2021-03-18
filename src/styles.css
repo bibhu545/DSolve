@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+@import url('https://fonts.googleapis.com/css?family=Rokkitt|Yeon+Sung&display=swap');
+
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    font-family: 'Rokkitt', cursive !important; 
+    font-size: 1.05em !important;
+    overflow-x: hidden;
+}
+.custom-body{
+    padding-top: 60px;
+    min-height: calc(100% - 50px);
+}
+.shadow{
+    box-shadow: 5px 8px 10px #888888;
+}
+.text-orange{
+    color: #FF5E14;
+}
+.cursor-pointer{
+    cursor: pointer;
+}

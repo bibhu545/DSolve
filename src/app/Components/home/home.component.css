@@ -1,0 +1,70 @@
+.hero {
+    background: url('../../../assets/well.jpg');
+    height: 400px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-top: 70px;
+    border-radius: 10px;
+    background-position: 0px -80px;
+}
+.hero-content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    height: 400px;
+    width: 100%;
+    border-radius: 10px;
+}
+.hero-brand-text{
+    color: white;
+    animation: changeColor 3s infinite;
+}
+@keyframes changeColor {
+    50% {color: #FF5E14;}
+}
+.hero-content-wrapper{
+    position: relative;
+    height: 400px;
+    width: 100%;
+}
+.hero-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+}
+
+.scroll-down{
+    font-size: 1.5em;
+    cursor: pointer;
+    animation: MoveUpDown 2s linear infinite;
+    position: absolute;
+}
+
+@keyframes MoveUpDown {
+    0%, 100% {
+      bottom: -10px;
+    }
+    50% {
+      bottom: 0px;
+    }
+}
+.stats-row{
+    margin: 20px 0px;
+}
+.content{
+    padding: 20px 30px;
+}
+.right-content{
+    background: #FF5E14;
+    color: white;
+    border-radius: 10px;
+}
+.img-team{
+    width: 240px;
+    height: 290px;
+    aspect-ratio: auto 420 / 467;
+}
