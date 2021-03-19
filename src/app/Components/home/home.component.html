@@ -9,7 +9,7 @@
                         <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h3>
                         <br />
                         <br />
-                        <span class="scroll-down">
+                        <span class="scroll-down" (click)="scrollDown()">
                             <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
                         </span>
                     </div>
@@ -34,7 +34,7 @@
     </div>
 
     <div class="row">
-        <div class="col-12">
+        <div class="col-12" id="scroll">
             <hr />
             <br />
         </div>
@@ -56,7 +56,7 @@
         </div>
         <div class="col-md-6 col-12">
             <div class="content right-content shadow">
-                <h3>Get a solution for all your needs.</h3>
+                <h3 class="text-center">Get a solution for all your needs.</h3>
                 <span>Production</span>
                 <br />
                 <progressbar max="100" [value]="80" type="primary"><i>80%</i>
@@ -89,6 +89,12 @@
                 <div class="card-body text-center">
                     <h4 class="card-title">Jason Smith</h4>
                     <p class="card-text text-orange">Founder / Ceo</p>
+                    <p>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-facebook"></i>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-instagram"></i>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-twitter"></i>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-linkedin"></i>
+                    </p>
                 </div>
             </div>
         </div>
@@ -98,6 +104,12 @@
                 <div class="card-body text-center">
                     <h4 class="card-title">Linda Johns</h4>
                     <p class="card-text text-orange">Money Management</p>
+                    <p>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-facebook"></i>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-instagram"></i>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-twitter"></i>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-linkedin"></i>
+                    </p>
                 </div>
             </div>
         </div>
@@ -107,6 +119,12 @@
                 <div class="card-body text-center">
                     <h4 class="card-title">Herb Dorothy</h4>
                     <p class="card-text text-orange">Production Head</p>
+                    <p>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-facebook"></i>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-instagram"></i>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-twitter"></i>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-linkedin"></i>
+                    </p>
                 </div>
             </div>
         </div>
@@ -116,13 +134,18 @@
                 <div class="card-body text-center">
                     <h4 class="card-title">Kyle Laine</h4>
                     <p class="card-text text-orange">Quality In charge</p>
+                    <p>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-facebook"></i>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-instagram"></i>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-twitter"></i>
+                        <i class="text-primary cursor-pointer mr-3 fab fa-linkedin"></i>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="row">
-
         <div class="col-12 text-center">
             <br />
             <br />
@@ -140,5 +163,98 @@
             </span>
         </div>
         <div class="col-2"></div>
+    </div>
+    <div class="logos mt-5 mb-5 text-center">
+        <div class="row">
+            <div class="col-3">
+                <img class="img-logo" src="../../../assets/l1.png" />
+            </div>
+            <div class="col-3">
+                <img class="img-logo" src="../../../assets/l2.png" />
+            </div>
+            <div class="col-3">
+                <img class="img-logo" src="../../../assets/l3.png" />
+            </div>
+            <div class="col-3">
+                <img class="img-logo" src="../../../assets/l4.png" />
+            </div>
+            <div class="col-3">
+                <img class="img-logo" src="../../../assets/l5.png" />
+            </div>
+            <div class="col-3">
+                <img class="img-logo" src="../../../assets/l6.png" />
+            </div>
+            <div class="col-3">
+                <img class="img-logo" src="../../../assets/l7.png" />
+            </div>
+            <div class="col-3">
+                <img class="img-logo" src="../../../assets/l8.png" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="botom-bg">
+    <div class="bottom-bg-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="content">
+                        <h2 class="text-center"><span class="text-orange">D</span>Solve</h2>
+                        <p class="text-center">
+                            <i class="text-orange cursor-pointer mr-3 fab fa-facebook"></i>
+                            <i class="text-orange cursor-pointer mr-3 fab fa-instagram"></i>
+                            <i class="text-orange cursor-pointer mr-3 fab fa-youtube"></i>
+                            <i class="text-orange cursor-pointer mr-3 fab fa-twitter"></i>
+                            <i class="text-orange cursor-pointer mr-3 fab fa-linkedin"></i>
+                        </p>
+                        <p>Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Etiam ultri cies nisi vel
+                            augue.
+                        </p>
+                        <div class="row">
+                            <div class="col-1"><i class="text-orange mt-2 ml-2 fas fa-building"></i></div>
+                            <div class="col-10">
+                                Manufactory, 2nd Cross Street, Newyork, USA 10205.
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1">
+                                <i class="text-orange mt-2 ml-2 fas fa-phone-square-alt"></i>
+                            </div>
+                            <div class="col-10">
+                                + 00-123-456-7890
+                                <br />
+                                + 00-123-456-7891
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1">
+                                <i class="text-orange mt-2 ml-2 fas fa-envelope"></i>
+                            </div>
+                            <div class="col-10">
+                                info@example1.com
+                                <br />
+                                info2@example.com
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="content botom-right-content">
+                        <h2>Subscribe for NewsLetter</h2>
+                        <p>Sign up to get latest updates and news.</p>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Enter your Email"
+                                aria-label="Enter your Email" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    Get News &nbsp;
+                                    <i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

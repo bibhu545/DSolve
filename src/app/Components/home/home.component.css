@@ -63,8 +63,29 @@
     color: white;
     border-radius: 10px;
 }
-.img-team{
-    width: 240px;
-    height: 290px;
-    aspect-ratio: auto 420 / 467;
+.botom-bg{
+    background: url('../../../assets/slider3.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.bottom-bg-content{
+    color: white;
+    background: rgba(0, 0, 0, 0.65);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+}
+.botom-right-content{
+    padding-top: 100px;
+}
+.img-logo{
+    margin-bottom: 60px;
+    padding: 10px;
+    transition: transform .2s;
+}
+
+.img-logo:hover{
+    border: 1px solid #FF5E14;
+    border-radius: 5px;
+    transform: scale(1.1);
 }
