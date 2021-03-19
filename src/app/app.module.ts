@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +12,8 @@ import { RegisterComponent } from './Components/User/register/register.component
 import { NavComponent } from './Components/partial/nav/nav.component';
 import { FooterComponent } from './Components/partial/footer/footer.component';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { DashboardComponent } from './Components/dashboard/dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,11 +25,15 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
     AddDHUComponent,
     RegisterComponent,
     NavComponent,
-    FooterComponent
+    FooterComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     ProgressbarModule.forRoot()
   ],
   providers: [],
