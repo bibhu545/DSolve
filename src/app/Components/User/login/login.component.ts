@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
 
   loginData: LoginRequestModel = new LoginRequestModel();
+  isLoggedIn = false;
 
   constructor(
     private http: HttpService,
@@ -24,6 +25,9 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (this.cookieService.isLoggedIn()) {
+      this.router.navigateByUrl('/dashboard');
+    }
   }
 
   login(): void {

@@ -14,9 +14,7 @@ export class HttpService {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.commonService.setLoding(true);
     return next.handle(req).pipe(finalize(() => {
-      setTimeout(() => {
-        this.commonService.setLoding(false);
-      }, 700);
+      this.commonService.setLoding(false);
     }));
   }
 

@@ -3,7 +3,7 @@ export class LoginRequestModel {
     password: string;
 }
 
-export class SignupModel {
+export class RegisterModel {
     email: string;
     name: string;
     companyName: string;

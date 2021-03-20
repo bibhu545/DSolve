@@ -13,7 +13,11 @@ import { NavComponent } from './Components/partial/nav/nav.component';
 import { FooterComponent } from './Components/partial/footer/footer.component';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpService } from './Services/http.service';
+import { EditProfileComponent } from './Components/User/edit-profile/edit-profile.component';
+import { AboutUsComponent } from './Components/about-us/about-us.component';
+import { NotFoundComponent } from './Components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,10 @@ import { HttpClientModule } from '@angular/common/http';
     RegisterComponent,
     NavComponent,
     FooterComponent,
-    DashboardComponent
+    DashboardComponent,
+    EditProfileComponent,
+    AboutUsComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +43,9 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     ProgressbarModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

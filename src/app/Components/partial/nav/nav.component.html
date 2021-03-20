@@ -14,17 +14,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/all-tests">About Us</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" *ngIf="isLoggedIn">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                         My Profile
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/user-home">Home</a>
-                        <a class="dropdown-item" href="#">Change Password</a>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="/user-home">Dashboard</a>
+                        <a class="dropdown-item" href="/edit-profile">Edit Profile</a>
+                        <a class="dropdown-item" href="javascript:void(0)" (click)="logout()">Logout</a>
                     </div>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="!isLoggedIn">
                     <a class="nav-link" href="/login">Login/Resister</a>
                 </li>
             </ul>

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CookieService as BaseCookieService } from 'ngx-cookie-service';
 import { LoginResponseModel, UserModel } from '../Utils/Models';
-import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +8,7 @@ import { AccountService } from './account.service';
 export class CookieService {
 
   constructor(
-    private cookieService: BaseCookieService,
-    private accountService: AccountService
+    private cookieService: BaseCookieService
   ) { }
 
   isLoggedIn(): boolean {

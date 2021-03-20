@@ -1,6 +1,6 @@
 <div class="custom-body">
     <div class="container">
-        <form class="content">
+        <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
             <div class="row">
                 <div class="col-12">
                     <h2 class="text-center">- Register -</h2>
@@ -9,29 +9,42 @@
                 <div class="col-md-5 col-12 p-4">
                     <div class="form-group">
                         <label for="name">Name:</label>
-                        <input type="text" class="form-control" placeholder="Enter name" id="name">
+                        <input type="text" class="form-control" placeholder="Enter name" id="name" formControlName="name">
                     </div>
                     <div class="form-group">
                         <label for="email">Email address:</label>
-                        <input type="email" class="form-control" placeholder="Enter email" id="email">
+                        <input type="email" class="form-control" placeholder="Enter email" id="email" formControlName="email">
                     </div>
-                    <div class="form-group">
-                        <label for="phone">Phone:</label>
-                        <input type="text" class="form-control" placeholder="Enter contact number" id="phone">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="phone">Phone:</label>
+                                <input type="text" class="form-control" placeholder="Enter contact number" id="phone" formControlName="phone">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="userType">User Type:</label>
+                                <select class="form-control" id="userType" formControlName="userType">
+                                    <option value="0">Admin</option>
+                                    <option value="1">Operator</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-5 col-12 p-4">
                     <div class="form-group">
                         <label for="companyName">Company Name:</label>
-                        <input type="text" class="form-control" placeholder="Enter Company Name" id="companyName">
+                        <input type="text" class="form-control" placeholder="Enter Company Name" id="companyName" formControlName="companyName">
                     </div>
                     <div class="form-group">
                         <label for="password">Password:</label>
-                        <input type="password" class="form-control" placeholder="Enter password" id="password">
+                        <input type="password" class="form-control" placeholder="Enter password" id="password" formControlName="password">
                     </div>
                     <div class="form-group">
                         <label for="confirmPassword">Confirm Password:</label>
-                        <input type="password" class="form-control" placeholder="Confirm Password" id="confirmPassword">
+                        <input type="password" class="form-control" placeholder="Confirm Password" id="confirmPassword" formControlName="confirmPassword">
                     </div>
                     <br />
                 </div>
