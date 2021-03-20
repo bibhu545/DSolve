@@ -9,23 +9,30 @@
                 <div class="col-md-5 col-12 p-4">
                     <div class="form-group">
                         <label for="name">Name:</label>
-                        <input type="text" class="form-control" placeholder="Enter name" id="name" formControlName="name">
+                        <input type="text" class="form-control" placeholder="Enter name" id="name"
+                            formControlName="name"
+                            [class.is-invalid]="getFormControl('name').invalid && (getFormControl('name').touched || getFormControl('name').dirty)">
                     </div>
                     <div class="form-group">
                         <label for="email">Email address:</label>
-                        <input type="email" class="form-control" placeholder="Enter email" id="email" formControlName="email">
+                        <input type="email" class="form-control" placeholder="Enter email" id="email"
+                            formControlName="email"
+                            [class.is-invalid]="getFormControl('email').invalid && (getFormControl('email').touched || getFormControl('email').dirty)">
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="phone">Phone:</label>
-                                <input type="text" class="form-control" placeholder="Enter contact number" id="phone" formControlName="phone">
+                                <input type="text" class="form-control" placeholder="Enter contact number" id="phone"
+                                    formControlName="phone"
+                                    [class.is-invalid]="getFormControl('phone').invalid && (getFormControl('phone').touched || getFormControl('phone').dirty)">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="userType">User Type:</label>
-                                <select class="form-control" id="userType" formControlName="userType">
+                                <select class="form-control" id="userType" formControlName="userType"
+                                    [class.is-invalid]="getFormControl('userType').invalid && (getFormControl('userType').touched || getFormControl('userType').dirty)">
                                     <option value="0">Admin</option>
                                     <option value="1">Operator</option>
                                 </select>
@@ -36,15 +43,21 @@
                 <div class="col-md-5 col-12 p-4">
                     <div class="form-group">
                         <label for="companyName">Company Name:</label>
-                        <input type="text" class="form-control" placeholder="Enter Company Name" id="companyName" formControlName="companyName">
+                        <input type="text" class="form-control" placeholder="Enter Company Name" id="companyName"
+                            [class.is-invalid]="getFormControl('companyName').invalid && (getFormControl('companyName').touched || getFormControl('companyName').dirty)"
+                            formControlName="companyName">
                     </div>
                     <div class="form-group">
                         <label for="password">Password:</label>
-                        <input type="password" class="form-control" placeholder="Enter password" id="password" formControlName="password">
+                        <input type="password" class="form-control" placeholder="Enter password" id="password"
+                            [class.is-invalid]="getFormControl('password').invalid && (getFormControl('password').touched || getFormControl('password').dirty)"
+                            formControlName="password">
                     </div>
                     <div class="form-group">
                         <label for="confirmPassword">Confirm Password:</label>
-                        <input type="password" class="form-control" placeholder="Confirm Password" id="confirmPassword" formControlName="confirmPassword">
+                        <input type="password" class="form-control" placeholder="Confirm Password" id="confirmPassword"
+                            [class.is-invalid]="getFormControl('confirmPassword').invalid && (getFormControl('confirmPassword').touched || getFormControl('confirmPassword').dirty)"
+                            formControlName="confirmPassword">
                     </div>
                     <br />
                 </div>

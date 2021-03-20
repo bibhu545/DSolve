@@ -1,3 +1,6 @@
+.custom-body{
+    padding-top: 4%;
+}
 .hero {
     background: url('../../../assets/well.jpg');
     height: 400px;

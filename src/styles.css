@@ -7,10 +7,11 @@ body {
     font-family: 'Rokkitt', cursive !important; 
     font-size: 1.05em !important;
     overflow-x: hidden;
-    padding-top: 57px;
 }
 .custom-body{
-    min-height: calc(100% - 57px);
+    padding-top: 57px;
+    min-height: calc(100vh - 57px);
+    background: linear-gradient(-45deg, rgb(146, 255, 255), white, white, white, white, rgb(146, 255, 255));
 }
 .shadow{
     box-shadow: 5px 8px 10px #888888;

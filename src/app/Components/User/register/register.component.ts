@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
       });
     }
     else{
-      this.registerForm.markAsTouched();
+      this.registerForm.markAllAsTouched();
     }
   }
 
