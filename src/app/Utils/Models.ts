@@ -34,3 +34,16 @@ export class UserModel {
     userType: number;
     joinedOn: any;
 }
+
+export class CheckedModel {
+    checkId: string;
+    date: Date;
+    totalChecked: number;
+    userId: string;
+}
+
+export class DefectModel {
+    checkId: string;
+    defectId: string;
+    amount: number;
+}

@@ -1,1 +1,29 @@
-<p>add-dhu works!</p>
+<div class="custom-body">
+    <div class="container">
+        <form [formGroup]="checkedForm" (ngSubmit)="addDefect(checkedForm.value)">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2>- Enter DHU -</h2>
+                </div>
+                <div class="col-md-4 col-12">
+                    <div class="form-group">
+                        <label for="date">Date:</label>
+                        <input type="date" class="form-control" placeholder="Enter date" formControlName="date" id="date"
+                        [class.is-invalid]="getFormControl('date').invalid && (getFormControl('date').touched || getFormControl('date').dirty)" />
+                    </div>
+                </div>
+                <div class="col-md-4 col-12">
+                    <div class="form-group">
+                        <label for="amount">Amount Checked:</label>
+                        <input type="number" class="form-control" placeholder="Enter amount" formControlName="amount" id="amount"
+                        [class.is-invalid]="getFormControl('amount').invalid && (getFormControl('amount').touched || getFormControl('amount').dirty)" />
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 align">
+                    <button type="submit" class="btn btn-primary mr-1">Add Record</button>
+                    <button type="button" class="btn btn-primary" (click)="resetCheck()">Reset</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

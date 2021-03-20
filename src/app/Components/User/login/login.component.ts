@@ -15,7 +15,6 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
 
-  isLoggedIn = false;
   loginForm: FormGroup;
   utils: Utils = new Utils();
 

@@ -1,0 +1,14 @@
+.circle{
+    cursor: pointer;
+    cursor: pointer;
+    border: 1px solid lightgray;
+    padding: 40px 15px;
+    border-radius: 50%;
+}
+.custom-body{
+    padding-top: 15%;
+}
+
+.bottom-content{
+    padding-top: 70px;
+}
