@@ -1,11 +1,13 @@
 import Swal from 'sweetalert2';
 
-// export const BaseUrl = 'https://herokuapis.herokuapp.com';
-export const BaseUrl = 'http://localhost:5000';
+export const BaseUrl = 'https://herokuapis.herokuapp.com';
+// export const BaseUrl = 'http://localhost:5000';
 
 export const API_ENDPOINTS = {
     login: BaseUrl + '/api/dsolve/user/login',
-    register: BaseUrl + '/api/dsolve/user/register'
+    register: BaseUrl + '/api/dsolve/user/register',
+    viewProfile: BaseUrl + '/api/dsolve/user/view-profile',
+    editProfile: BaseUrl + '/api/dsolve/user/edit-profile'
 };
 
 export const USER_TYPES = {

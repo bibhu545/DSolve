@@ -23,8 +23,8 @@ export class HttpService {
     return response;
   }
 
-  getData(url: string): Observable<any> {
-    const response = this.http.get(url);
+  getData(url: string, headers?: any): Observable<any> {
+    const response = this.http.get(url, headers);
     return response;
   }
 }
