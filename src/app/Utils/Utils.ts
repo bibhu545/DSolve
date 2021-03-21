@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 
-// export const BaseUrl = 'https://herokuapis.herokuapp.com';
-export const BaseUrl = 'http://localhost:5000';
+export const BaseUrl = 'https://herokuapis.herokuapp.com';
+// export const BaseUrl = 'http://localhost:5000';
 
 export const API_ENDPOINTS = {
     login: BaseUrl + '/api/dsolve/user/login',
