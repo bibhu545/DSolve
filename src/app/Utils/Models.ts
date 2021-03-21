@@ -60,6 +60,18 @@ export class CompleteDataModel {
     total: number;
 }
 
+export class ViewDataModel {
+    fromDate: Date;
+    toDate: Date;
+    deptId: string;
+    userId: string;
+}
+
+export class ViewDataResponseModel {
+    date: Date;
+    dateString: string;
+}
+
 export class DDLModel {
     text: string;
     value: string;

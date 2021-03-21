@@ -15,8 +15,7 @@
                 <div class="col-md-3 col-12">
                     <div class="form-group">
                         <label for="toDate">To Date:</label>
-                        <input type="date" class="form-control" formControlName="toDate" id="toDate"
-                            [class.is-invalid]="getFormControl('toDate').invalid && (getFormControl('toDate').touched || getFormControl('toDate').dirty)" />
+                        <input type="date" class="form-control" formControlName="toDate" id="toDate" />
                     </div>
                 </div>
                 <div class="col-md-3 col-12">
@@ -38,30 +37,47 @@
         </form>
         <div class="row">
             <div class="col-12">
-                <div class="table-container">
+                <div class="table-responsive">
                     <div class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Sl No.</th>
                                 <th>Defect Ctegory</th>
+                                <th *ngFor="let item of dateList" [textContent]="item"></th>
+                                <th>Total</th>
+                                <th>Cumulative</th>
+                                <th>Percentage</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of defects;let i = index">
+                            <tr *ngFor="let item of defectListModelData;let i = index">
                                 <td [textContent]="i + 1"></td>
-                                <td [textContent]="item.text"></td>
+                                <td [textContent]="item.defect.text"></td>
+                                <td *ngFor="let d of item.amounts">{{d}}</td>
+                                <td>{{totalByDefectList[i]}}</td>
+                                <td>{{cumulativeList[i]}}</td>
+                                <td>{{getPercentage(cumulativeList[i])}}</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <th>Total Defects</th>
+                                <td *ngFor="let item of totalDefects">{{item}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <th>Audited Pieces</th>
+                                <td *ngFor="let item of dateList">{{getAuditedPieces(item)}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </div>
                 </div>
+                <br />
             </div>
         </div>
     </div>
