@@ -18,6 +18,9 @@ import { HttpService } from './Services/http.service';
 import { EditProfileComponent } from './Components/User/edit-profile/edit-profile.component';
 import { AboutUsComponent } from './Components/about-us/about-us.component';
 import { NotFoundComponent } from './Components/not-found/not-found.component';
+import { ViewDataComponent } from './Components/Operations/view-data/view-data.component';
+import { PlotGraphComponent } from './Components/Operations/plot-graph/plot-graph.component';
+import { ViewSolutionComponent } from './Components/Operations/view-solution/view-solution.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { NotFoundComponent } from './Components/not-found/not-found.component';
     DashboardComponent,
     EditProfileComponent,
     AboutUsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ViewDataComponent,
+    PlotGraphComponent,
+    ViewSolutionComponent
   ],
   imports: [
     BrowserModule,

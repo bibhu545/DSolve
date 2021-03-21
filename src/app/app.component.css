@@ -1,5 +1,6 @@
 .loading {
-    position: absolute;
+    position: fixed;
+    z-index: 9999;
     top: 0;
     left: 0;
     bottom: 0;
@@ -10,4 +11,5 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    width: 100%;
 }

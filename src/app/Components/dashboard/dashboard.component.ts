@@ -17,4 +17,16 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('/add-dhu');
   }
 
+  viewSolutions(): void {
+    this.router.navigateByUrl('/view-solution');
+  }
+
+  plotGraph(): void {
+    this.router.navigateByUrl('/plot-graph');
+  }
+
+  viewData(): void {
+    this.router.navigateByUrl('/view-data');
+  }
+
 }

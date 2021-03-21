@@ -1,0 +1,11 @@
+.custom-body{
+    padding-top: 7%;
+}
+
+.align{
+    padding-top: 33px;
+}
+
+.table td, .table th {
+    padding: 3px !important;
+}
