@@ -1,29 +1,110 @@
 <div class="custom-body">
     <div class="container">
-        <form [formGroup]="checkedForm" (ngSubmit)="addDefect(checkedForm.value)">
+        <form [formGroup]="checkedForm" (ngSubmit)="addDHU(checkedForm.value)">
             <div class="row">
                 <div class="col-12 text-center">
                     <h2>- Enter DHU -</h2>
                 </div>
-                <div class="col-md-4 col-12">
+                <div class="col-md-3 col-12">
                     <div class="form-group">
                         <label for="date">Date:</label>
-                        <input type="date" class="form-control" placeholder="Enter date" formControlName="date" id="date"
-                        [class.is-invalid]="getFormControl('date').invalid && (getFormControl('date').touched || getFormControl('date').dirty)" />
+                        <input type="date" class="form-control" placeholder="Enter date" formControlName="date"
+                            id="date"
+                            [class.is-invalid]="getFormControl('date').invalid && (getFormControl('date').touched || getFormControl('date').dirty)" />
                     </div>
                 </div>
-                <div class="col-md-4 col-12">
+                <div class="col-md-3 col-12">
                     <div class="form-group">
                         <label for="amount">Amount Checked:</label>
-                        <input type="number" class="form-control" placeholder="Enter amount" formControlName="amount" id="amount"
-                        [class.is-invalid]="getFormControl('amount').invalid && (getFormControl('amount').touched || getFormControl('amount').dirty)" />
+                        <input type="number" class="form-control" placeholder="Enter amount" formControlName="amount"
+                            id="amount"
+                            [class.is-invalid]="getFormControl('amount').invalid && (getFormControl('amount').touched || getFormControl('amount').dirty)" />
                     </div>
                 </div>
-                <div class="col-md-4 col-12 align">
+                <div class="col-md-3 col-12">
+                    <div class="form-group">
+                        <label for="deptId">Department:</label>
+                        <select class="form-control" placeholder="Enter department" formControlName="deptId" id="deptId"
+                            [class.is-invalid]="getFormControl('deptId').invalid && (getFormControl('deptId').touched || getFormControl('deptId').dirty)">
+                            <option value="">Select</option>
+                            <option *ngFor="let item of departments" [value]="item.value" [textContent]="item.text">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 col-12 align">
                     <button type="submit" class="btn btn-primary mr-1">Add Record</button>
                     <button type="button" class="btn btn-primary" (click)="resetCheck()">Reset</button>
                 </div>
             </div>
         </form>
+        <ng-container *ngIf="showDefectSection">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <hr />
+                    <h4>- Add Defects -</h4>
+                    <strong>Day: </strong><span>{{this.completeData.checkedData.date}}</span>&nbsp;
+                    <strong>Department: </strong> <span>{{this.completeData.checkedData.deptName}}</span>
+                    <hr />
+                </div>
+            </div>
+            <ng-container *ngIf="defectList.length > 0">
+                <div class="row" *ngFor="let item of defectList">
+                    <div class="col-3"></div>
+                    <div class="col-3 text-right">
+                        {{item.defectName}}:
+                    </div>
+                    <div class="col-3">
+                        {{item.amount}}
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+                <br />
+            </ng-container>
+            <form [formGroup]="defectForm" (ngSubmit)="addDefect(defectForm.value)">
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="defect" *ngIf="!showAddDefect">Select Defect:</label>
+                            <label for="defect" *ngIf="showAddDefect">Add Defect Name:</label>
+                            <select class="form-control" id="defect" *ngIf="!showAddDefect" formControlName="defect"
+                                [class.is-invalid]="getDefectFormControl('defect').invalid && (getDefectFormControl('defect').touched || getDefectFormControl('defect').dirty)">
+                                <option value="">Select</option>
+                                <option *ngFor="let item of defects" [value]="item.value" [textContent]="item.text">
+                                </option>
+                            </select>
+                            <input class="form-control" name="defectName" id="defect" *ngIf="showAddDefect"
+                                formControlName="defectName"
+                                [class.is-invalid]="getDefectFormControl('defectName').invalid && (getDefectFormControl('defectName').touched || getDefectFormControl('defectName').dirty)" />
+                            <div class="text-right text-small">
+                                <a href="javascript:void(0)" (click)="showAddDefect = !showAddDefect">
+                                    <span *ngIf="!showAddDefect">Add New Deffect</span>
+                                    <span *ngIf="showAddDefect">Cancel</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="damount">Amount:</label>
+                            <input class="form-control" type="number" id="damount" formControlName="amount"
+                                [class.is-invalid]="getDefectFormControl('amount').invalid && (getDefectFormControl('amount').touched || getDefectFormControl('amount').dirty)" />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-12 align">
+                        <button type="submit" class="btn btn-primary">Add Defect</button>
+                    </div>
+                </div>
+            </form>
+            <br />
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-3 text-right"><strong>Total Defects:</strong></div>
+                <div class="col-3"><strong>{{totalAmount}}</strong></div>
+                <div class="col-3"></div>
+            </div>
+            <br />
+        </ng-container>
     </div>
 </div>

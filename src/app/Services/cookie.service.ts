@@ -41,7 +41,7 @@ export class CookieService {
     if (dataFromCookie.length !== 0) {
       const userArray = dataFromCookie.split('|');
       const userData: UserModel = new UserModel();
-      userData.userId = parseInt(userArray[0]);
+      userData.userId = userArray[0];
       userData.email = userArray[1];
       userData.name = userArray[2];
       userData.phone = userArray[3];

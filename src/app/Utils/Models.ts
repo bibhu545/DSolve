@@ -26,7 +26,7 @@ export class LoginResponseModel {
 }
 
 export class UserModel {
-    userId: number;
+    userId: string;
     email: string;
     name: string;
     companyName: string;
@@ -37,13 +37,35 @@ export class UserModel {
 
 export class CheckedModel {
     checkId: string;
-    date: Date;
+    date: string;
+    dateString: string;
     totalChecked: number;
     userId: string;
+    deptId: string;
+    deptName: string;
+    amount: number;
 }
 
-export class DefectModel {
-    checkId: string;
-    defectId: string;
+export class DefectDataModel {
+    checked: string;
+    defect: string;
+    defectName: string;
     amount: number;
+    user: string;
+}
+
+export class CompleteDataModel {
+    checkedData: CheckedModel;
+    defectData: DefectDataModel[];
+    total: number;
+}
+
+export class DDLModel {
+    text: string;
+    value: string;
+
+    constructor(text: string, value: string) {
+        this.text = text;
+        this.value = value;
+    }
 }

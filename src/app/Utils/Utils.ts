@@ -7,7 +7,11 @@ export const API_ENDPOINTS = {
     login: BaseUrl + '/api/dsolve/user/login',
     register: BaseUrl + '/api/dsolve/user/register',
     viewProfile: BaseUrl + '/api/dsolve/user/view-profile',
-    editProfile: BaseUrl + '/api/dsolve/user/edit-profile'
+    editProfile: BaseUrl + '/api/dsolve/user/edit-profile',
+    getDepartments: BaseUrl + '/api/dsolve/operations/get-department',
+    getDefects: BaseUrl + '/api/dsolve/operations/get-defects',
+    addDHU: BaseUrl + '/api/dsolve/operations/add-dhu',
+    addDefectData: BaseUrl + '/api/dsolve/operations/add-defectdata',
 };
 
 export const USER_TYPES = {
