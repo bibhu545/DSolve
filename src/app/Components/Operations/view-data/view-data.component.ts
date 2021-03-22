@@ -27,6 +27,7 @@ export class ViewDataComponent implements OnInit {
   totalDefects: number[] = [];
   auditedPieces: number[] = [];
   totalByDefectList: number[] = [];
+  showGrid = false;
 
   constructor(
     private http: HttpService,
@@ -115,8 +116,10 @@ export class ViewDataComponent implements OnInit {
           dl.amounts.push(0);
         });
       });
+      this.showGrid = false;
       this.http.postData(API_ENDPOINTS.getDHUByDate, data).subscribe(response => {
         if (response) {
+          this.showGrid = true;
           response.forEach(item => {
             const c: CheckedModel = new CheckedModel();
             c.amount = item.amount;

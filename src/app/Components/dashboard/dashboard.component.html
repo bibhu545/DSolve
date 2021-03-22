@@ -1,15 +1,35 @@
 <div class="custom-body">
     <div class="container">
         <div class="row">
-            <div class="col-5 text-right">
-                <span class="circle" (click)="addDHU()">Enter DHU</span>
+
+            <div class="col-2"></div>
+            <div class="col-4">
+                <div class="circle" (click)="addDHU()" style="border-right: 0;border-bottom: 0;border-top-left-radius: 10px;">
+                    <i class="fas fa-pen"></i><br />
+                    <span class="text-primary">Enter DHU</span>
+                </div>
             </div>
-            <div class="col-2 text-center">
-                <span class="circle" (click)="plotGraph()">Plot Graphs</span>
+            <div class="col-4">
+                <div class="circle" (click)="viewData()" style="border-bottom: 0;border-top-right-radius: 10px;">
+                    <i class="fas fa-clipboard-list"></i><br />
+                    <span class="text-primary">View Data</span>
+                </div>
             </div>
-            <div class="col-5 text-left">
-                <span class="circle" (click)="viewData()">View Data</span>
+            <div class="col-2"></div>
+            <div class="col-2"></div>
+            <div class="col-4">
+                <div class="circle" (click)="plotGraph()" style="border-right: 0;border-bottom-left-radius: 10px;">
+                    <i class="fas fa-chart-bar"></i><br />
+                    <span class="text-primary">Plot Graphs</span>
+                </div>
             </div>
+            <div class="col-4">
+                <div class="circle" (click)="viewSolutions()" style="border-bottom-right-radius: 10px;">
+                    <i class="fas fa-clipboard-check"></i><br />
+                    <span class="text-primary">Get Solutions</span>
+                </div>
+            </div>
+            <div class="col-2"></div>
         </div>
     </div>
 </div>

@@ -94,6 +94,7 @@ export class AddDHUComponent implements OnInit {
           this.completeData.checkedData.deptId = response.department;
           this.completeData.checkedData.deptName = this.departments.find(item => item.value === response.department).text;
           this.completeData.checkedData.totalChecked = 0;
+          this.getDefectData();
         }
         else {
           this.utils.showErrorMessage('Some error occured.');
@@ -124,6 +125,19 @@ export class AddDHUComponent implements OnInit {
     });
   }
 
+  getDefectData(): void {
+    this.http.getData(API_ENDPOINTS.getDefectData).subscribe(response => {
+      if (response) {
+        this.populateDefectData(response);
+      }
+      else {
+        this.utils.showErrorMessage('Some error occured.');
+      }
+    }, e => {
+      this.utils.showErrorMessage(e.error.message);
+    });
+  }
+
   addDefect(defectData: DefectDataModel): void {
     if (this.showAddDefect) {
       defectData.defect = '0';
@@ -137,24 +151,7 @@ export class AddDHUComponent implements OnInit {
       defectData.checked = this.completeData.checkedData.checkId;
       this.http.postData(API_ENDPOINTS.addDefectData, defectData).subscribe(response => {
         if (response) {
-          this.showAddDefect = false;
-          this.fetchDefectList();
-          this.defectForm.reset();
-          this.defectForm.get('defect').setValue('');
-          this.totalAmount = 0;
-          this.defectList = [];
-          response.forEach(r => {
-            if (r.checked === defectData.checked) {
-              const temp: DefectDataModel = new DefectDataModel();
-              temp.amount = r.amount;
-              temp.checked = r.checked;
-              temp.defect = r.defect;
-              temp.user = r.user;
-              temp.defectName = r.defectDetails[0]?.name;
-              this.totalAmount += r.amount;
-              this.defectList.push(temp);
-            }
-          });
+          this.populateDefectData(response);
         }
         else {
           this.utils.showErrorMessage('Some error occured.');
@@ -166,6 +163,27 @@ export class AddDHUComponent implements OnInit {
     else {
       this.defectForm.markAllAsTouched();
     }
+  }
+
+  populateDefectData(response: any): void {
+    this.showAddDefect = false;
+    this.fetchDefectList();
+    this.defectForm.reset();
+    this.defectForm.get('defect').setValue('');
+    this.totalAmount = 0;
+    this.defectList = [];
+    response.forEach(r => {
+      if (r.checked === this.completeData.checkedData.checkId) {
+        const temp: DefectDataModel = new DefectDataModel();
+        temp.amount = r.amount;
+        temp.checked = r.checked;
+        temp.defect = r.defect;
+        temp.user = r.user;
+        temp.defectName = r.defectDetails[0]?.name;
+        this.totalAmount += r.amount;
+        this.defectList.push(temp);
+      }
+    });
   }
 
   getDefectFormControl(name): any {

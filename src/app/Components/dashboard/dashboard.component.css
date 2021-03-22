@@ -1,14 +1,27 @@
 .circle{
     cursor: pointer;
-    cursor: pointer;
-    border: 1px solid lightgray;
+    border: 1px solid #FF5E14;
     padding: 40px 15px;
-    border-radius: 50%;
+    text-align: center;
+    transition: all 0.2s;
 }
+
+.circle:hover{
+    box-shadow: 5px 8px 10px #888888;
+}
+
+.col-4 {
+    padding: 0;
+}
+
 .custom-body{
-    padding-top: 15%;
+    padding-top: 10%;
 }
 
 .bottom-content{
     padding-top: 70px;
+}
+
+i{
+    color: #FF5E14;
 }
