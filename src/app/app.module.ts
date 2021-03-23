@@ -21,6 +21,7 @@ import { NotFoundComponent } from './Components/not-found/not-found.component';
 import { ViewDataComponent } from './Components/Operations/view-data/view-data.component';
 import { PlotGraphComponent } from './Components/Operations/plot-graph/plot-graph.component';
 import { ViewSolutionComponent } from './Components/Operations/view-solution/view-solution.component';
+import { DefectSolutionsComponent } from './Components/Operations/defect-solutions/defect-solutions.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ViewSolutionComponent } from './Components/Operations/view-solution/vie
     NotFoundComponent,
     ViewDataComponent,
     PlotGraphComponent,
-    ViewSolutionComponent
+    ViewSolutionComponent,
+    DefectSolutionsComponent
   ],
   imports: [
     BrowserModule,

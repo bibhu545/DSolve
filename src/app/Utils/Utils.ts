@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 
-export const BaseUrl = 'https://herokuapis.herokuapp.com';
-// export const BaseUrl = 'http://localhost:5000';
+// export const BaseUrl = 'https://herokuapis.herokuapp.com';
+export const BaseUrl = 'http://localhost:5000';
 
 export const API_ENDPOINTS = {
     login: BaseUrl + '/api/dsolve/user/login',
@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
     getDepartments: BaseUrl + '/api/dsolve/operations/get-department',
     getDefects: BaseUrl + '/api/dsolve/operations/get-defects',
     addDHU: BaseUrl + '/api/dsolve/operations/add-dhu',
+    addDefect: BaseUrl + '/api/dsolve/operations//add-defects',
     addDefectData: BaseUrl + '/api/dsolve/operations/add-defectdata',
     getDefectData: BaseUrl + '/api/dsolve/operations/get-defectdata',
     getDHUByDate: BaseUrl + '/api/dsolve/operations/get-dhu-bydate',

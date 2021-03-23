@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
     if (this.cookieService.isLoggedIn()) {
       this.router.navigateByUrl('/dashboard');
     }
-    else{
+    else {
       this.prepareRegisterForm();
     }
   }
@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
   prepareRegisterForm(): void {
     this.registerForm = this.formBuilder.group({
       name: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl('', [Validators.required]),
       phone: new FormControl('', [Validators.required]),
@@ -51,6 +51,10 @@ export class RegisterComponent implements OnInit {
   }
 
   register(signupData: RegisterModel): void {
+    if (this.registerForm.get('password').value !== this.registerForm.get('confirmPassword').value) {
+      this.utils.showErrorMessage('Passwords did not match.');
+      return;
+    }
     if (this.registerForm.valid) {
       this.http.postData(API_ENDPOINTS.register, signupData).subscribe(response => {
         if (response) {
@@ -65,7 +69,7 @@ export class RegisterComponent implements OnInit {
         this.utils.showErrorMessage(e.error.message);
       });
     }
-    else{
+    else {
       this.registerForm.markAllAsTouched();
     }
   }

@@ -209,6 +209,10 @@ export class ViewDataComponent implements OnInit {
     return 0 + '%';
   }
 
+  goBack(): void {
+    this.router.navigateByUrl('dashboard');
+  }
+
 }
 
 export class DefectListModel {

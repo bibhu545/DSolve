@@ -5,6 +5,7 @@ import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { HomeComponent } from './Components/home/home.component';
 import { NotFoundComponent } from './Components/not-found/not-found.component';
 import { AddDHUComponent } from './Components/Operations/add-dhu/add-dhu.component';
+import { DefectSolutionsComponent } from './Components/Operations/defect-solutions/defect-solutions.component';
 import { PlotGraphComponent } from './Components/Operations/plot-graph/plot-graph.component';
 import { ViewDataComponent } from './Components/Operations/view-data/view-data.component';
 import { ViewSolutionComponent } from './Components/Operations/view-solution/view-solution.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'plot-graph', component: PlotGraphComponent },
   { path: 'about-us', component: AboutUsComponent },
   { path: 'edit-profile', component: EditProfileComponent },
+  { path: 'defect-solutions', component: DefectSolutionsComponent },
   { path: '', component: HomeComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }

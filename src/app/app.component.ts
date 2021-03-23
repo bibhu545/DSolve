@@ -17,12 +17,13 @@ export class AppComponent implements AfterViewInit {
     private commonService: CommonService,
     private cd: ChangeDetectorRef
   ) {
-    this.commonService.loading$.subscribe(data => {
-      this.isLoading = data;
-    });
+
   }
 
   ngAfterViewInit(): void {
+    this.commonService.loading$.subscribe(data => {
+      this.isLoading = data;
+    });
     this.cd.detectChanges();
   }
 }

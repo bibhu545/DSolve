@@ -34,7 +34,8 @@
                 </div>
                 <div class="col-md-3 col-12 align">
                     <button type="submit" class="btn btn-primary mr-1">Add Record</button>
-                    <button type="button" class="btn btn-primary" (click)="resetCheck()">Reset</button>
+                    <button type="button" class="btn btn-primary mr-1" (click)="resetCheck()">Reset</button>
+                    <button type="button" class="btn btn-primary" (click)="goBack()">Back</button>
                 </div>
             </div>
         </form>
@@ -45,6 +46,7 @@
                     <h4>- Add Defects -</h4>
                     <strong>Day: </strong><span>{{this.completeData.checkedData.date}}</span>&nbsp;
                     <strong>Department: </strong> <span>{{this.completeData.checkedData.deptName}}</span>
+                    <strong>Total Checked: </strong> <span>{{this.completeData.checkedData.amount}}</span>
                     <hr />
                 </div>
             </div>

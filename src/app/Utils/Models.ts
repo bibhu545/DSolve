@@ -54,6 +54,14 @@ export class DefectDataModel {
     user: string;
 }
 
+export class DefectModel {
+    name: string;
+    deptId: string;
+    solution: string;
+    defectId: string;
+    editMode?: boolean;
+}
+
 export class CompleteDataModel {
     checkedData: CheckedModel;
     defectData: DefectDataModel[];

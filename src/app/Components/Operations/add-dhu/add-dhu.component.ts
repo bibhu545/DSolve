@@ -47,13 +47,12 @@ export class AddDHUComponent implements OnInit {
       }, e => {
         this.utils.showErrorMessage(e.error.message);
       });
-      this.fetchDefectList();
     }
   }
 
-  fetchDefectList(): void {
+  fetchDefectList(dept: string): void {
     this.defectList = [];
-    this.http.getData(API_ENDPOINTS.getDefects).subscribe(response => {
+    this.http.postData(API_ENDPOINTS.getDefects, {deptId: dept}).subscribe(response => {
       if (response) {
         this.defects = response.map(item => new DDLModel(item.name, item._id));
       }
@@ -94,6 +93,7 @@ export class AddDHUComponent implements OnInit {
           this.completeData.checkedData.deptId = response.department;
           this.completeData.checkedData.deptName = this.departments.find(item => item.value === response.department).text;
           this.completeData.checkedData.totalChecked = 0;
+          this.fetchDefectList(this.completeData.checkedData.deptId);
           this.getDefectData();
         }
         else {
@@ -115,6 +115,10 @@ export class AddDHUComponent implements OnInit {
     this.showDefectSection = false;
     this.defectList = [];
     this.completeData = new CompleteDataModel();
+  }
+
+  goBack(): void {
+    this.router.navigateByUrl('dashboard');
   }
 
   prepareDefectForm(): void {
@@ -143,7 +147,7 @@ export class AddDHUComponent implements OnInit {
       defectData.defect = '0';
       this.defectForm.get('defect').setValue('0');
     }
-    else{
+    else {
       this.defectForm.get('defectName').setValue('0');
     }
     if (this.defectForm.valid) {
@@ -167,7 +171,7 @@ export class AddDHUComponent implements OnInit {
 
   populateDefectData(response: any): void {
     this.showAddDefect = false;
-    this.fetchDefectList();
+    this.fetchDefectList(this.completeData.checkedData.deptId);
     this.defectForm.reset();
     this.defectForm.get('defect').setValue('');
     this.totalAmount = 0;
