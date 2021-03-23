@@ -52,22 +52,23 @@ export class DefectSolutionsComponent implements OnInit {
   }
 
   editDefect(item: DefectModel): void {
-    this.http.postData(API_ENDPOINTS.addDefect, item).subscribe(response => {
-      if (response) {
-        this.showDefects = true;
-        response.forEach(r => {
-          this.defects.push({
-            defectId: r._id,
-            deptId: r.department,
-            name: r.name,
-            solution: r.solution
-          });
-        });
+    if (item.name.trim() === '') {
+      this.utils.showErrorMessage('Can not leave defect name empty.');
+    }
+    else {
+      if (item.solution.trim() === '') {
+        item.solution = 'No solution available.';
       }
-    }, e => {
-      this.showDefects = false;
-      this.utils.showErrorMessage(e.error.message);
-    });
+      this.http.postData(API_ENDPOINTS.addDefect, item).subscribe(response => {
+        if (response) {
+          this.utils.showSuccessMessage('Data updated.');
+          item.editMode = false;
+        }
+      }, e => {
+        this.showDefects = false;
+        this.utils.showErrorMessage(e.error.message);
+      });
+    }
   }
 
   deleteDefect(item: DefectModel): void {

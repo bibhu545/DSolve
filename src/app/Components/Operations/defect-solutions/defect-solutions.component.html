@@ -43,9 +43,11 @@
                                 <td *ngIf="!item.editMode">{{item.name}}</td>
                                 <td *ngIf="!item.editMode">{{item.solution}}</td>
                                 <td *ngIf="item.editMode">
-                                    <input type="text" [(ngModel)]="item.name" name="name" />
+                                    <input type="text" class="form-control" [(ngModel)]="item.name" name="name" />
                                 </td>
-                                <td *ngIf="item.editMode">{{item.solution}}</td>
+                                <td *ngIf="item.editMode">
+                                    <input type="text" class="form-control" [(ngModel)]="item.solution" name="solution" />
+                                </td>
                                 <td>
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
                                         <button type="button" class="btn btn-primary" *ngIf="!item.editMode" (click)="item.editMode = true">
