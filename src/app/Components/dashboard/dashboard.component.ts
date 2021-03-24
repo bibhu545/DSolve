@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'src/app/Services/cookie.service';
+import { DDLModel, UserModel } from 'src/app/Utils/Models';
+import { Utils } from 'src/app/Utils/Utils';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,9 +11,21 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  utils: Utils = new Utils();
+  userData: UserModel = new UserModel();
+
+  constructor(
+    private router: Router,
+    private cookieService: CookieService
+  ) { }
 
   ngOnInit(): void {
+    if (!this.cookieService.isLoggedIn()) {
+      this.router.navigateByUrl('/login');
+    }
+    else {
+      this.userData = this.cookieService.getUserdataFromCookies();
+    }
   }
 
   addDHU(): void {

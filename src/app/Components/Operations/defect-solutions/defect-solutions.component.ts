@@ -14,12 +14,15 @@ import { API_ENDPOINTS, Utils } from 'src/app/Utils/Utils';
 export class DefectSolutionsComponent implements OnInit {
 
   viewForm: FormGroup;
+  addForm: FormGroup;
   utils: Utils = new Utils();
   departments: DDLModel[] = [];
   userData: UserModel = new UserModel();
   defects: DefectModel[] = [];
   showDefects = false;
   deptId: string;
+  department: DDLModel = new DDLModel('', '');
+  addMode = false;
 
   constructor(
     private http: HttpService,
@@ -42,6 +45,37 @@ export class DefectSolutionsComponent implements OnInit {
       }, e => {
         this.utils.showErrorMessage(e.error.message);
       });
+    }
+  }
+
+  prepareAddForm(): void {
+    this.addForm = this.formBuilder.group({
+      name: new FormControl('', [Validators.required]),
+      solution: new FormControl('', [Validators.required]),
+    });
+  }
+
+  addData(): void{
+    if (this.addForm.valid) {
+      const data: DefectModel = {
+        deptId: this.department.value,
+        defectId: null,
+        name: this.addForm.get('name').value,
+        solution: this.addForm.get('solution').value
+      };
+      this.http.postData(API_ENDPOINTS.addDefect, data).subscribe(response => {
+        if (response) {
+          this.utils.showSuccessMessage('Data added.');
+          this.addMode = false;
+          this.fetchData();
+        }
+      }, e => {
+        this.addMode = false;
+        this.utils.showErrorMessage(e.error.message);
+      });
+    }
+    else {
+      this.addForm.markAllAsTouched();
     }
   }
 
@@ -80,6 +114,7 @@ export class DefectSolutionsComponent implements OnInit {
       const data: any = {
         deptId: this.viewForm.get('deptId').value
       };
+      this.department = this.departments.find(x => x.value === data.deptId);
       this.defects = [];
       this.showDefects = false;
       this.http.postData(API_ENDPOINTS.getDefects, data).subscribe(response => {

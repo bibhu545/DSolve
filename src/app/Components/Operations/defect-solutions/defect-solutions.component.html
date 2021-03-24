@@ -26,6 +26,46 @@
                 <div class="col-3"></div>
             </div>
         </form>
+
+        <div class="row" *ngIf="showDefects">
+            <div class="col-12 text-center">
+                <h4>
+                    Defects for {{department.text}} &nbsp;
+                    <button class="btn btn-primary" *ngIf="!addMode" (click)="addMode = true">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button class="btn btn-primary" *ngIf="addMode" (click)="addMode = false">
+                        <i class="far fa-times-circle"></i>
+                    </button>
+                </h4>
+            </div>
+        </div>
+
+        <form [formGroup]="addForm" (ngSubmit)="addData()" *ngIf="addMode">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="name">Defect Name:</label>
+                        <input class="form-control" placeholder="Enter department" formControlName="name" id="name"
+                            [class.is-invalid]="getAddFormControl('name').invalid && (getAddFormControl('name').touched || getAddFormControl('name').dirty)" />
+
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="solution">Solution:</label>
+                        <input class="form-control" placeholder="Enter department" formControlName="solution"
+                            id="solution"
+                            [class.is-invalid]="getAddFormControl('solution').invalid && (getAddFormControl('solution').touched || getAddFormControl('solution').dirty)" />
+                    </div>
+                </div>
+                <div class="col-2 align">
+                    <button type="submit" class="btn btn-primary w-100">Add Now</button>
+                </div>
+            </div>
+        </form>
+
         <div class="row" *ngIf="showDefects">
             <div class="col-2"></div>
             <div class="col-8">
@@ -46,20 +86,25 @@
                                     <input type="text" class="form-control" [(ngModel)]="item.name" name="name" />
                                 </td>
                                 <td *ngIf="item.editMode">
-                                    <input type="text" class="form-control" [(ngModel)]="item.solution" name="solution" />
+                                    <input type="text" class="form-control" [(ngModel)]="item.solution"
+                                        name="solution" />
                                 </td>
                                 <td>
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
-                                        <button type="button" class="btn btn-primary" *ngIf="!item.editMode" (click)="item.editMode = true">
+                                        <button type="button" class="btn btn-primary" *ngIf="!item.editMode"
+                                            (click)="item.editMode = true">
                                             <i class="fas fa-pencil-alt"></i>
                                         </button>
-                                        <button type="button" class="btn btn-danger" *ngIf="!item.editMode" (click)="deleteDefect(item)">
+                                        <button type="button" class="btn btn-danger" *ngIf="!item.editMode"
+                                            (click)="deleteDefect(item)">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
-                                        <button type="button" class="btn btn-primary" *ngIf="item.editMode" (click)="editDefect(item)">
+                                        <button type="button" class="btn btn-primary" *ngIf="item.editMode"
+                                            (click)="editDefect(item)">
                                             <i class="fas fa-pencil-alt"></i>
                                         </button>
-                                        <button type="button" class="btn btn-primary" *ngIf="item.editMode" (click)="item.editMode = false">
+                                        <button type="button" class="btn btn-primary" *ngIf="item.editMode"
+                                            (click)="item.editMode = false">
                                             <i class="far fa-times-circle"></i>
                                         </button>
                                     </div>
