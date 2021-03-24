@@ -11,11 +11,13 @@ export const API_ENDPOINTS = {
     getDepartments: BaseUrl + '/api/dsolve/operations/get-department',
     getDefects: BaseUrl + '/api/dsolve/operations/get-defects',
     addDHU: BaseUrl + '/api/dsolve/operations/add-dhu',
-    addDefect: BaseUrl + '/api/dsolve/operations//add-defects',
+    addDefect: BaseUrl + '/api/dsolve/operations/add-defects',
+    deleteDefect: BaseUrl + '/api/dsolve/operations/delete-defect',
     addDefectData: BaseUrl + '/api/dsolve/operations/add-defectdata',
     getDefectData: BaseUrl + '/api/dsolve/operations/get-defectdata',
     getDHUByDate: BaseUrl + '/api/dsolve/operations/get-dhu-bydate',
-    getDefectDataByCheckedIds: BaseUrl + '/api/dsolve/operations/get-defectdata-bychecked-ids'
+    getDefectDataByCheckedIds: BaseUrl + '/api/dsolve/operations/get-defectdata-bychecked-ids',
+    getSolutions: BaseUrl + '/api/dsolve/operations/get-solutions',
 };
 
 export const USER_TYPES = {

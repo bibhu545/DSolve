@@ -143,6 +143,7 @@ export class AddDHUComponent implements OnInit {
   }
 
   addDefect(defectData: DefectDataModel): void {
+    defectData.deptId = this.completeData.checkedData.deptId;
     if (this.showAddDefect) {
       defectData.defect = '0';
       this.defectForm.get('defect').setValue('0');

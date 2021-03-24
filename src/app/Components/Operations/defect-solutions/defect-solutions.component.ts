@@ -5,6 +5,7 @@ import { CookieService } from 'src/app/Services/cookie.service';
 import { HttpService } from 'src/app/Services/http.service';
 import { DDLModel, DefectModel, UserModel } from 'src/app/Utils/Models';
 import { API_ENDPOINTS, Utils } from 'src/app/Utils/Utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-defect-solutions',
@@ -38,6 +39,7 @@ export class DefectSolutionsComponent implements OnInit {
     else {
       this.userData = this.cookieService.getUserdataFromCookies();
       this.prepareViewForm();
+      this.prepareAddForm();
       this.http.getData(API_ENDPOINTS.getDepartments).subscribe(response => {
         if (response) {
           this.departments = response.map(item => new DDLModel(item.name, item._id));
@@ -55,7 +57,7 @@ export class DefectSolutionsComponent implements OnInit {
     });
   }
 
-  addData(): void{
+  addData(): void {
     if (this.addForm.valid) {
       const data: DefectModel = {
         deptId: this.department.value,
@@ -106,7 +108,31 @@ export class DefectSolutionsComponent implements OnInit {
   }
 
   deleteDefect(item: DefectModel): void {
-    console.log(this.utils.showConfirm('Are you sure ?', 'Are you sure ?'));
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.http.postData(API_ENDPOINTS.deleteDefect, item).subscribe(response => {
+          if (response) {
+            this.fetchData();
+            Swal.fire(
+              'Deleted!',
+              'Data has been deleted.',
+              'success'
+            );
+          }
+        }, e => {
+          this.showDefects = false;
+          this.utils.showErrorMessage(e.error.message);
+        });
+      }
+    });
   }
 
   fetchData(): void {
@@ -141,6 +167,10 @@ export class DefectSolutionsComponent implements OnInit {
 
   getFormControl(name): any {
     return this.viewForm.get(name);
+  }
+
+  getAddFormControl(name): any {
+    return this.addForm.get(name);
   }
 
   goBack(): void {

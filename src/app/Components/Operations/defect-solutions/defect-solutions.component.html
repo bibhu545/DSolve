@@ -31,7 +31,7 @@
             <div class="col-12 text-center">
                 <h4>
                     Defects for {{department.text}} &nbsp;
-                    <button class="btn btn-primary" *ngIf="!addMode" (click)="addMode = true">
+                    <button class="btn btn-primary" *ngIf="!addMode" (click)="prepareAddForm();addMode = true">
                         <i class="fas fa-plus"></i>
                     </button>
                     <button class="btn btn-primary" *ngIf="addMode" (click)="addMode = false">
@@ -47,7 +47,7 @@
                 <div class="col-3">
                     <div class="form-group">
                         <label for="name">Defect Name:</label>
-                        <input class="form-control" placeholder="Enter department" formControlName="name" id="name"
+                        <input class="form-control" placeholder="Enter Defect" formControlName="name" id="name"
                             [class.is-invalid]="getAddFormControl('name').invalid && (getAddFormControl('name').touched || getAddFormControl('name').dirty)" />
 
                     </div>
@@ -55,7 +55,7 @@
                 <div class="col-3">
                     <div class="form-group">
                         <label for="solution">Solution:</label>
-                        <input class="form-control" placeholder="Enter department" formControlName="solution"
+                        <input class="form-control" placeholder="Enter Solution" formControlName="solution"
                             id="solution"
                             [class.is-invalid]="getAddFormControl('solution').invalid && (getAddFormControl('solution').touched || getAddFormControl('solution').dirty)" />
                     </div>
@@ -101,7 +101,7 @@
                                         </button>
                                         <button type="button" class="btn btn-primary" *ngIf="item.editMode"
                                             (click)="editDefect(item)">
-                                            <i class="fas fa-pencil-alt"></i>
+                                            <i class="fas fa-check"></i>
                                         </button>
                                         <button type="button" class="btn btn-primary" *ngIf="item.editMode"
                                             (click)="item.editMode = false">

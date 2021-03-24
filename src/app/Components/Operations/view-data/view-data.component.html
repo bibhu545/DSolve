@@ -1,6 +1,6 @@
 <div class="custom-body">
     <div class="container">
-        <form [formGroup]="viewForm" (ngSubmit)="fetchData(viewForm.value)">
+        <form [formGroup]="viewForm" (ngSubmit)="fetchDefectData(viewForm.value)">
             <div class="row">
                 <div class="col-12 text-center">
                     <h2>- View Records -</h2>
@@ -79,6 +79,12 @@
                         </tbody>
                     </div>
                 </div>
+                <br />
+            </div>
+            <div class="col-12">
+                <h4 class="text-center mt-2">
+                    Total DHU: {{getDHUPercentage() + '%'}}
+                </h4>
                 <br />
             </div>
         </div>

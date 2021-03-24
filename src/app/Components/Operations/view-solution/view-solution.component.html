@@ -1,1 +1,67 @@
-<p>view-solution works!</p>
+<div class="custom-body">
+    <div class="container">
+        <form [formGroup]="viewForm" (ngSubmit)="fetchDefectData(viewForm.value)">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2>- View Solutions -</h2>
+                </div>
+                <div class="col-md-3 col-12">
+                    <div class="form-group">
+                        <label for="fromDate">From Date:</label>
+                        <input type="date" class="form-control" formControlName="fromDate" id="fromDate"
+                            [class.is-invalid]="getFormControl('fromDate').invalid && (getFormControl('fromDate').touched || getFormControl('fromDate').dirty)" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-12">
+                    <div class="form-group">
+                        <label for="toDate">To Date:</label>
+                        <input type="date" class="form-control" formControlName="toDate" id="toDate" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-12">
+                    <div class="form-group">
+                        <label for="deptId">Department:</label>
+                        <select class="form-control" placeholder="Enter department" formControlName="deptId" id="deptId"
+                            [class.is-invalid]="getFormControl('deptId').invalid && (getFormControl('deptId').touched || getFormControl('deptId').dirty)">
+                            <option value="">Select</option>
+                            <option *ngFor="let item of departments" [value]="item.value" [textContent]="item.text">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 col-12 align">
+                    <button type="submit" class="btn btn-primary mr-1">Get Solutions</button>
+                    <button type="button" class="btn btn-primary mr-1" (click)="resetViewForm()">Reset</button>
+                    <button type="button" class="btn btn-primary" (click)="goBack()">Back</button>
+                </div>
+            </div>
+        </form>
+        <div class="row" *ngIf="showGrid">
+            <div class="col-12 text-center">
+                <h4 class="text-center">
+                    Solution to top 3 defects for selected time period
+                </h4>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 30%">Defect Name</th>
+                                <th>Solution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of solutions">
+                                <td>{{item.defectName}}</td>
+                                <td>{{item.solution}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+</div>

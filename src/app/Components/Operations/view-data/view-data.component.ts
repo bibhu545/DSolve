@@ -50,12 +50,12 @@ export class ViewDataComponent implements OnInit {
       }, e => {
         this.utils.showErrorMessage(e.error.message);
       });
-      this.fetchDefectList();
     }
   }
 
-  fetchDefectList(): void {
-    this.http.getData(API_ENDPOINTS.getDefects).subscribe(response => {
+  fetchDefectList(data: ViewDataModel): void {
+    this.defectListModelData = [];
+    this.http.postData(API_ENDPOINTS.getDefects, { deptId: data.deptId }).subscribe(response => {
       if (response) {
         this.defects = response.map(item => new DDLModel(item.name, item._id));
         response.forEach(item => {
@@ -64,6 +64,7 @@ export class ViewDataComponent implements OnInit {
             amounts: []
           });
         });
+        this.fetchData(data);
       }
     }, e => {
       this.utils.showErrorMessage(e.error.message);
@@ -83,6 +84,21 @@ export class ViewDataComponent implements OnInit {
     return this.viewForm.get(name);
   }
 
+  getDHUPercentage(): number {
+    const td: number = this.totalDefects.reduce((a, b) => a + b, 0);
+    const tpc: number = this.dhuList.map(d => d.amount).reduce((a, b) => a + b, 0);
+    return Math.ceil((td / tpc) * 100);
+  }
+
+  fetchDefectData(data: ViewDataModel): void {
+    if (this.viewForm.valid) {
+      this.fetchDefectList(data);
+    }
+    else {
+      this.viewForm.markAllAsTouched();
+    }
+  }
+
   fetchData(data: ViewDataModel): void {
     this.dateList = [];
     this.checkIdList = [];
@@ -93,54 +109,51 @@ export class ViewDataComponent implements OnInit {
     this.precentageList = [];
     this.totalByDefectList = [];
     data.userId = this.userData.userId;
-    if (this.viewForm.valid) {
-      const f = Object.assign(data.fromDate, {});
-      data.fromDate = new Date(data.fromDate);
-      let t: any;
-      if (data.toDate) {
-        t = Object.assign(data.toDate, {});
-        data.toDate = new Date(data.toDate);
-        for (const d = Object.assign(data.fromDate, {}); d <= data.toDate; d.setDate(d.getDate() + 1)) {
-          this.dateList.push(d.toLocaleDateString());
-        }
+    const f = Object.assign(data.fromDate, {});
+    data.fromDate = new Date(data.fromDate);
+    let t: any;
+    if (data.toDate) {
+      t = Object.assign(data.toDate, {});
+      data.toDate = new Date(data.toDate);
+      for (const d = Object.assign(data.fromDate, {}); d <= data.toDate; d.setDate(d.getDate() + 1)) {
+        this.dateList.push(d.toLocaleDateString());
       }
-      else {
-        this.dateList.push(data.fromDate.toLocaleDateString());
-        t = null;
-      }
-      data.fromDate = f;
-      data.toDate = t;
-      this.defectListModelData.forEach(dl => {
-        dl.amounts = [];
-        this.dateList.forEach(d => {
-          dl.amounts.push(0);
-        });
-      });
-      this.showGrid = false;
-      this.http.postData(API_ENDPOINTS.getDHUByDate, data).subscribe(response => {
-        if (response) {
-          this.showGrid = true;
-          response.forEach(item => {
-            const c: CheckedModel = new CheckedModel();
-            c.amount = item.amount;
-            c.checkId = item._id;
-            c.date = item.date;
-            c.dateString = item.dateString;
-            c.deptId = item.department;
-            c.deptName = this.departments.find(d => d.value === item.department).text;
-            c.userId = item.user;
-            this.checkIdList.push(item._id);
-            this.dhuList.push(c);
-          });
-          this.getDefectDataByCheckedIds();
-        }
-      }, e => {
-        this.utils.showErrorMessage(e.error.message);
-      });
     }
     else {
-      this.viewForm.markAllAsTouched();
+      this.dateList.push(data.fromDate.toLocaleDateString());
+      t = null;
     }
+    data.fromDate = f;
+    data.toDate = t;
+    this.defectListModelData.forEach(dl => {
+      dl.amounts = [];
+      this.dateList.forEach(d => {
+        dl.amounts.push(0);
+      });
+    });
+    this.showGrid = false;
+    this.http.postData(API_ENDPOINTS.getDHUByDate, data).subscribe(response => {
+      if (response) {
+        this.showGrid = true;
+        response.forEach(item => {
+          const c: CheckedModel = new CheckedModel();
+          c.amount = item.amount;
+          c.checkId = item._id;
+          c.date = item.date;
+          c.dateString = item.dateString;
+          c.deptId = item.department;
+          c.deptName = this.departments.find(d => d.value === item.department).text;
+          c.userId = item.user;
+          this.checkIdList.push(item._id);
+          this.dhuList.push(c);
+        });
+        this.getDefectDataByCheckedIds();
+      }
+    }, e => {
+      this.utils.showErrorMessage(e.error.message);
+    });
+
+
   }
 
   getDefectDataByCheckedIds(): void {
@@ -189,7 +202,16 @@ export class ViewDataComponent implements OnInit {
 
   resetViewForm(): void {
     this.viewForm.reset();
+    this.showGrid = false;
     this.viewForm.get('deptId').setValue('');
+    this.dateList = [];
+    this.checkIdList = [];
+    this.dhuList = [];
+    this.totalDefects = [];
+    this.cumulativeList = [];
+    this.auditedPieces = [];
+    this.precentageList = [];
+    this.totalByDefectList = [];
   }
 
   getAuditedPieces(date: string): number {

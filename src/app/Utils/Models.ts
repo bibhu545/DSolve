@@ -52,6 +52,7 @@ export class DefectDataModel {
     defectName: string;
     amount: number;
     user: string;
+    deptId: string;
 }
 
 export class DefectModel {
