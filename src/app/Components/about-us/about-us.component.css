@@ -1,0 +1,24 @@
+.custom-body{
+    padding-top: 7%;
+}
+
+.content{
+    padding: 20px 30px;
+}
+.right-content{
+    background: #FF5E14;
+    color: white;
+    border-radius: 10px;
+}
+
+.x{
+    background: url('../../../assets/1.jpg');
+    height: 90%;
+}
+
+.y{
+    background: url('../../../assets/2.jpg');
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
