@@ -22,6 +22,7 @@ import { ViewDataComponent } from './Components/Operations/view-data/view-data.c
 import { PlotGraphComponent } from './Components/Operations/plot-graph/plot-graph.component';
 import { ViewSolutionComponent } from './Components/Operations/view-solution/view-solution.component';
 import { DefectSolutionsComponent } from './Components/Operations/defect-solutions/defect-solutions.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { DefectSolutionsComponent } from './Components/Operations/defect-solutio
     ViewDataComponent,
     PlotGraphComponent,
     ViewSolutionComponent,
-    DefectSolutionsComponent
+    DefectSolutionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +50,8 @@ import { DefectSolutionsComponent } from './Components/Operations/defect-solutio
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ProgressbarModule.forRoot()
+    ProgressbarModule.forRoot(),
+    ChartsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpService, multi: true }

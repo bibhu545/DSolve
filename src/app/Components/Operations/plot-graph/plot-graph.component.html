@@ -1,6 +1,6 @@
 <div class="custom-body">
     <div class="container">
-        <form [formGroup]="viewForm" (ngSubmit)="fetchData(viewForm.value)">
+        <form [formGroup]="viewForm" (ngSubmit)="fetchDefectData(viewForm.value)">
             <div class="row">
                 <div class="col-12 text-center">
                     <h2>- Plot Graph -</h2>
@@ -30,11 +30,21 @@
                     </div>
                 </div>
                 <div class="col-md-3 col-12 align">
-                    <button type="submit" class="btn btn-primary mr-1">Show Graph</button>
+                    <button type="submit" class="btn btn-primary mr-1">Plot Graph</button>
                     <button type="button" class="btn btn-primary mr-1" (click)="resetViewForm()">Reset</button>
                     <button type="button" class="btn btn-primary" (click)="goBack()">Back</button>
                 </div>
             </div>
         </form>
+        <div class="row" *ngIf="showGrid">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <br />
+                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                    [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+                </canvas>
+                <br />
+            </div>
+        </div>
     </div>
 </div>

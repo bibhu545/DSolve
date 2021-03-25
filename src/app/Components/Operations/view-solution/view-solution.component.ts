@@ -97,6 +97,7 @@ export class ViewSolutionComponent implements OnInit {
   }
 
   fetchData(data: ViewDataModel): void {
+    this.solutions = [];
     this.http.getData(API_ENDPOINTS.getSolutions).subscribe(response => {
       if (response) {
         this.showGrid = true;
@@ -140,6 +141,8 @@ export class ViewSolutionComponent implements OnInit {
 
   resetViewForm(): void {
     this.viewForm.reset();
+    this.solutions = [];
+    this.showGrid = false;
     this.viewForm.get('deptId').setValue('');
   }
 

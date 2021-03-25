@@ -6,6 +6,10 @@ import { HttpService } from 'src/app/Services/http.service';
 import { CheckedModel, DDLModel, UserModel, ViewDataModel } from 'src/app/Utils/Models';
 import { API_ENDPOINTS, Utils } from 'src/app/Utils/Utils';
 import { DefectListModel } from '../view-data/view-data.component';
+import { SolutionModel } from '../view-solution/view-solution.component';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import { Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-plot-graph',
@@ -29,6 +33,25 @@ export class PlotGraphComponent implements OnInit {
   auditedPieces: number[] = [];
   totalByDefectList: number[] = [];
   showGrid = false;
+  deptId: string;
+  solutions: SolutionModel[] = [];
+
+  barChartOptions: ChartOptions = {
+    responsive: true,
+    scales: { xAxes: [{}], yAxes: [{}] },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      }
+    }
+  };
+  barChartLabels: Label[] = [];
+  barChartType: ChartType = 'bar';
+  barChartLegend = false;
+  barChartPlugins = [pluginDataLabels];
+
+  barChartData: ChartDataSets[] = [];
 
   constructor(
     private http: HttpService,
@@ -51,9 +74,17 @@ export class PlotGraphComponent implements OnInit {
       }, e => {
         this.utils.showErrorMessage(e.error.message);
       });
-      this.fetchDefectList();
     }
   }
+
+  // public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+  //   console.log(event, active);
+  // }
+
+  // public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+  //   console.log(event, active);
+  // }
+
 
   prepareViewForm(): void {
     this.viewForm = this.formBuilder.group({
@@ -63,8 +94,9 @@ export class PlotGraphComponent implements OnInit {
     });
   }
 
-  fetchDefectList(): void {
-    this.http.getData(API_ENDPOINTS.getDefects).subscribe(response => {
+  fetchDefectList(data: ViewDataModel): void {
+    this.defectListModelData = [];
+    this.http.postData(API_ENDPOINTS.getDefects, { deptId: data.deptId }).subscribe(response => {
       if (response) {
         this.defects = response.map(item => new DDLModel(item.name, item._id));
         response.forEach(item => {
@@ -73,6 +105,7 @@ export class PlotGraphComponent implements OnInit {
             amounts: []
           });
         });
+        this.fetchData(data);
       }
     }, e => {
       this.utils.showErrorMessage(e.error.message);
@@ -83,51 +116,61 @@ export class PlotGraphComponent implements OnInit {
     return this.viewForm.get(name);
   }
 
-  fetchData(data: ViewDataModel): void {
-    this.dateList = [];
-    this.checkIdList = [];
-    this.dhuList = [];
-    this.totalDefects = [];
-    this.cumulativeList = [];
-    this.auditedPieces = [];
-    this.precentageList = [];
-    this.totalByDefectList = [];
-    data.userId = this.userData.userId;
+  fetchDefectData(data: ViewDataModel): void {
     if (this.viewForm.valid) {
-      const f = Object.assign(data.fromDate, {});
-      data.fromDate = new Date(data.fromDate);
-      let t: any;
-      if (data.toDate) {
-        t = Object.assign(data.toDate, {});
-        data.toDate = new Date(data.toDate);
-        for (const d = Object.assign(data.fromDate, {}); d <= data.toDate; d.setDate(d.getDate() + 1)) {
-          this.dateList.push(d.toLocaleDateString());
-        }
-      }
-      else {
-        this.dateList.push(data.fromDate.toLocaleDateString());
-        t = null;
-      }
-      data.fromDate = f;
-      data.toDate = t;
-      this.defectListModelData.forEach(dl => {
-        dl.amounts = [];
-        this.dateList.forEach(d => {
-          dl.amounts.push(0);
-        });
-      });
-      this.showGrid = false;
-      this.http.postData(API_ENDPOINTS.getDHUByDate, data).subscribe(response => {
-        if (response) {
-
-        }
-      }, e => {
-        this.utils.showErrorMessage(e.error.message);
-      });
+      this.deptId = this.viewForm.get('deptId').value;
+      this.fetchDefectList(data);
     }
     else {
       this.viewForm.markAllAsTouched();
     }
+  }
+
+  fetchData(data: ViewDataModel): void {
+    this.solutions = [];
+    this.http.getData(API_ENDPOINTS.getSolutions).subscribe(response => {
+      if (response) {
+        let byDate: any[] = [];
+        if (data.toDate) {
+          byDate = response.filter(dd =>
+            new Date(dd.checkedDetails[0].date) >= new Date(data.fromDate) &&
+            new Date(dd.checkedDetails[0].date) <= new Date(data.toDate));
+        }
+        else {
+          byDate = response.filter(dd =>
+            new Date(dd.checkedDetails[0].date).toLocaleDateString() ===
+            new Date(data.fromDate).toLocaleDateString());
+        }
+        byDate.forEach(item => {
+          const index = this.solutions.findIndex(i => i.defectId === item.defectDetails[0]._id);
+          if (index === -1) {
+            const s: SolutionModel = new SolutionModel();
+            s.amount = item.amount;
+            s.defectId = item.defectDetails[0]._id;
+            s.defectName = item.defectDetails[0].name;
+            s.solution = item.defectDetails[0].solution;
+            this.solutions.push(s);
+          }
+          else {
+            this.solutions[index].amount += item.amount;
+          }
+        });
+        this.solutions.sort((a, b) => (a.defectName > b.defectName) ? 1 : ((b.defectName > a.defectName) ? -1 : 0));
+        this.plotGraph();
+        this.showGrid = true;
+      }
+    }, e => {
+      this.showGrid = false;
+      this.utils.showErrorMessage(e.error.message);
+    });
+  }
+
+  plotGraph(): void {
+    const dataList = this.solutions.map(s => s.amount);
+    this.barChartData = [
+      { data: dataList, label: 'Amount' }
+    ];
+    this.barChartLabels = this.solutions.map(s => s.defectName);
   }
 
   goBack(): void {
@@ -136,6 +179,8 @@ export class PlotGraphComponent implements OnInit {
 
   resetViewForm(): void {
     this.viewForm.reset();
+    this.solutions = [];
+    this.showGrid = false;
     this.viewForm.get('deptId').setValue('');
   }
 
