@@ -106,7 +106,7 @@ export class PlotGraphComponent implements OnInit {
     this.defectListModelData.forEach(dl => {
       dl.amounts = [];
       this.dateList.forEach(d => {
-        dl.amounts.push(0);
+        dl.amounts.push({ editMode: false, qty: 0 });
       });
     });
     this.showGrid = false;
@@ -160,7 +160,7 @@ export class PlotGraphComponent implements OnInit {
     this.defectListModelData.forEach((dl, dlIndex) => {
       let totalByDefect = 0;
       dl.amounts.forEach(d => {
-        totalByDefect += d;
+        totalByDefect += d.qty;
       });
       this.totalByDefectList.push(totalByDefect);
     });
@@ -172,7 +172,7 @@ export class PlotGraphComponent implements OnInit {
     this.dateList.forEach((d, i) => {
       let t = 0;
       this.defectListModelData.forEach(dl => {
-        t += dl.amounts[i];
+        t += dl.amounts[i].qty;
       });
       this.totalDefects.push(t);
     });

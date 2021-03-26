@@ -5,6 +5,7 @@ import { CookieService } from 'src/app/Services/cookie.service';
 import { HttpService } from 'src/app/Services/http.service';
 import { CheckedModel, DDLModel, UserModel, ViewDataModel } from 'src/app/Utils/Models';
 import { API_ENDPOINTS, Utils } from 'src/app/Utils/Utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-data',
@@ -128,7 +129,7 @@ export class ViewDataComponent implements OnInit {
     this.defectListModelData.forEach(dl => {
       dl.amounts = [];
       this.dateList.forEach(d => {
-        dl.amounts.push(0);
+        dl.amounts.push({ editMode: false, qty: 0 });
       });
     });
     this.showGrid = false;
@@ -167,7 +168,8 @@ export class ViewDataComponent implements OnInit {
             const i = response.findIndex(r => r.checked === dhu.checkId && r.defect === dl.defect.value);
             if (i !== -1) {
               const di = this.dateList.findIndex(d => new Date(d).toLocaleDateString() === new Date(dhu.date).toLocaleDateString());
-              dl.amounts[di] = response[i].amount;
+              dl.amounts[di].qty = response[i].amount;
+              dl.amounts[di].ddId = response[i]._id;
             }
           });
         });
@@ -182,7 +184,7 @@ export class ViewDataComponent implements OnInit {
     this.defectListModelData.forEach((dl, dlIndex) => {
       let totalByDefect = 0;
       dl.amounts.forEach(d => {
-        totalByDefect += d;
+        totalByDefect += d.qty;
       });
       this.totalByDefectList.push(totalByDefect);
     });
@@ -194,7 +196,7 @@ export class ViewDataComponent implements OnInit {
     this.dateList.forEach((d, i) => {
       let t = 0;
       this.defectListModelData.forEach(dl => {
-        t += dl.amounts[i];
+        t += dl.amounts[i].qty;
       });
       this.totalDefects.push(t);
     });
@@ -235,9 +237,46 @@ export class ViewDataComponent implements OnInit {
     this.router.navigateByUrl('dashboard');
   }
 
+  deleteDefectData(item: DefectAmountModel): void {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.http.postData(API_ENDPOINTS.deleteDefect, item).subscribe(response => {
+          if (response) {
+            Swal.fire(
+              'Deleted!',
+              'Data has been deleted.',
+              'success'
+            );
+          }
+        }, e => {
+          this.resetViewForm();
+          this.utils.showErrorMessage(e.error.message);
+        });
+      }
+    });
+  }
+
+  editDefectData(item: DefectAmountModel): void {
+    console.log(item);
+  }
+
 }
 
 export class DefectListModel {
   defect: DDLModel;
-  amounts: number[];
+  amounts: DefectAmountModel[];
+}
+
+export class DefectAmountModel {
+  qty: number;
+  editMode = false;
+  ddId?: string;
 }

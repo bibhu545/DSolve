@@ -23,6 +23,7 @@ import { PlotGraphComponent } from './Components/Operations/plot-graph/plot-grap
 import { ViewSolutionComponent } from './Components/Operations/view-solution/view-solution.component';
 import { DefectSolutionsComponent } from './Components/Operations/defect-solutions/defect-solutions.component';
 import { ChartsModule } from 'ng2-charts';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { ChartsModule } from 'ng2-charts';
     FormsModule,
     ReactiveFormsModule,
     ProgressbarModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    PopoverModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpService, multi: true }

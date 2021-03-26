@@ -55,7 +55,27 @@
                             <tr *ngFor="let item of defectListModelData;let i = index">
                                 <td [textContent]="i + 1"></td>
                                 <td [textContent]="item.defect.text"></td>
-                                <td *ngFor="let d of item.amounts">{{d}}</td>
+                                <td *ngFor="let d of item.amounts;let j = index" class="cursor-pointer">
+                                    <span *ngIf="!d.editMode" (click)="d.editMode= true">{{d.qty}}</span>
+                                    <ng-container *ngIf="d.editMode">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control input-sm" placeholder="Amount"
+                                                [(ngModel)]="d.qty" name="amount" style="width: 70px;">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary btn-sm" type="button" (click)="editDefectData(d)">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </button>
+                                                <button class="btn btn-primary btn-sm" type="button"
+                                                    (click)="d.editMode = false">
+                                                    <i class="far fa-times-circle"></i>
+                                                </button>
+                                                <button class="btn btn-danger btn-sm" type="button" (click)="deleteDefectData(d)">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </td>
                                 <td>{{totalByDefectList[i]}}</td>
                                 <td>{{cumulativeList[i]}}</td>
                                 <td>{{getPercentage(cumulativeList[i])}}</td>
