@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { CookieService } from 'src/app/Services/cookie.service';
 import { HttpService } from 'src/app/Services/http.service';
-import { CheckedModel, DDLModel, UserModel, ViewDataModel } from 'src/app/Utils/Models';
+import { CheckedModel, DDLModel, DefectDataModel, UserModel, ViewDataModel } from 'src/app/Utils/Models';
 import { API_ENDPOINTS, Utils } from 'src/app/Utils/Utils';
 import Swal from 'sweetalert2';
 
@@ -29,6 +29,7 @@ export class ViewDataComponent implements OnInit {
   auditedPieces: number[] = [];
   totalByDefectList: number[] = [];
   showGrid = false;
+  x: ViewDataModel = new ViewDataModel();
 
   constructor(
     private http: HttpService,
@@ -93,6 +94,7 @@ export class ViewDataComponent implements OnInit {
 
   fetchDefectData(data: ViewDataModel): void {
     if (this.viewForm.valid) {
+      this.x = data;
       this.fetchDefectList(data);
     }
     else {
@@ -129,7 +131,7 @@ export class ViewDataComponent implements OnInit {
     this.defectListModelData.forEach(dl => {
       dl.amounts = [];
       this.dateList.forEach(d => {
-        dl.amounts.push({ editMode: false, qty: 0 });
+        dl.amounts.push({ editMode: false, qty: 0, user: data.userId, defect: dl.defect.value });
       });
     });
     this.showGrid = false;
@@ -248,8 +250,13 @@ export class ViewDataComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.http.postData(API_ENDPOINTS.deleteDefect, item).subscribe(response => {
+        const data: any = {
+          id: item.ddId,
+          amount: item.qty
+        };
+        this.http.postData(API_ENDPOINTS.deleteDefectData, data).subscribe(response => {
           if (response) {
+            this.fetchDefectData(this.x);
             Swal.fire(
               'Deleted!',
               'Data has been deleted.',
@@ -264,8 +271,22 @@ export class ViewDataComponent implements OnInit {
     });
   }
 
-  editDefectData(item: DefectAmountModel): void {
-    console.log(item);
+  editDefectData(dliData: DefectListModel, item: DefectAmountModel, colIndex: number): void {
+    const data: DefectDataModel = new DefectDataModel();
+    data.amount = item.qty;
+    data.checked = this.dhuList[colIndex].checkId;
+    data.user = item.user;
+    data.defect = item.defect;
+    console.log(data);
+    this.http.postData(API_ENDPOINTS.addDefectData, data).subscribe(response => {
+      if (response) {
+        this.utils.showSuccessMessage('Data updated');
+        this.fetchDefectData(this.x);
+      }
+    }, e => {
+      this.resetViewForm();
+      this.utils.showErrorMessage(e.error.message);
+    });
   }
 
 }
@@ -279,4 +300,7 @@ export class DefectAmountModel {
   qty: number;
   editMode = false;
   ddId?: string;
+  checked?: string;
+  defect?: string;
+  user?: string;
 }

@@ -56,13 +56,13 @@
                                 <td [textContent]="i + 1"></td>
                                 <td [textContent]="item.defect.text"></td>
                                 <td *ngFor="let d of item.amounts;let j = index" class="cursor-pointer">
-                                    <span *ngIf="!d.editMode" (click)="d.editMode= true">{{d.qty}}</span>
+                                    <span class="text-col" *ngIf="!d.editMode" (click)="d.editMode= true">{{d.qty}}</span>
                                     <ng-container *ngIf="d.editMode">
                                         <div class="input-group">
                                             <input type="number" class="form-control input-sm" placeholder="Amount"
                                                 [(ngModel)]="d.qty" name="amount" style="width: 70px;">
                                             <div class="input-group-append">
-                                                <button class="btn btn-primary btn-sm" type="button" (click)="editDefectData(d)">
+                                                <button class="btn btn-primary btn-sm" type="button" (click)="editDefectData(item, d, j)">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </button>
                                                 <button class="btn btn-primary btn-sm" type="button"

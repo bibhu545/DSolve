@@ -14,10 +14,12 @@ export const API_ENDPOINTS = {
     addDefect: BaseUrl + '/api/dsolve/operations/add-defects',
     deleteDefect: BaseUrl + '/api/dsolve/operations/delete-defect',
     addDefectData: BaseUrl + '/api/dsolve/operations/add-defectdata',
+    deleteDefectData: BaseUrl + '/api/dsolve/operations/delete-defect-data',
+    updateDefectData: BaseUrl + '/api/dsolve/operations/update-defect-data',
     getDefectData: BaseUrl + '/api/dsolve/operations/get-defectdata',
     getDHUByDate: BaseUrl + '/api/dsolve/operations/get-dhu-bydate',
     getDefectDataByCheckedIds: BaseUrl + '/api/dsolve/operations/get-defectdata-bychecked-ids',
-    getSolutions: BaseUrl + '/api/dsolve/operations/get-solutions',
+    getSolutions: BaseUrl + '/api/dsolve/operations/get-solutions'
 };
 
 export const USER_TYPES = {
@@ -39,10 +41,11 @@ export class Utils {
             footer: footerMessage
         });
     }
+
     showSuccessMessage(message: string): void {
         Swal.fire(
             message,
-            'Your file has been deleted.',
+            'Your data has been updated.',
             'success'
         );
     }
