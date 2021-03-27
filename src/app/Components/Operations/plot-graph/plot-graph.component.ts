@@ -38,7 +38,26 @@ export class PlotGraphComponent implements OnInit {
 
   barChartOptions: ChartOptions = {
     responsive: true,
-    scales: { xAxes: [{}], yAxes: [{}] },
+    scales: {
+      xAxes: [{}], yAxes: [
+        {
+          id: 'y-axis-0',
+          position: 'left',
+        },
+        {
+          id: 'y-axis-1',
+          position: 'right',
+          gridLines: {
+            color: 'rgba(0,0,0,0)',
+          },
+          ticks: {
+            fontColor: 'red',
+            max: 100,
+            min: 0
+          }
+        }
+      ]
+    },
     plugins: {
       datalabels: {
         anchor: 'end',
@@ -76,108 +95,6 @@ export class PlotGraphComponent implements OnInit {
       });
     }
   }
-
-  fetchDataForLineGraph(data: ViewDataModel): void {
-    this.dateList = [];
-    this.checkIdList = [];
-    this.dhuList = [];
-    this.totalDefects = [];
-    this.cumulativeList = [];
-    this.auditedPieces = [];
-    this.precentageList = [];
-    this.totalByDefectList = [];
-    data.userId = this.userData.userId;
-    const f = Object.assign(data.fromDate, {});
-    data.fromDate = new Date(data.fromDate);
-    let t: any;
-    if (data.toDate) {
-      t = Object.assign(data.toDate, {});
-      data.toDate = new Date(data.toDate);
-      for (const d = Object.assign(data.fromDate, {}); d <= data.toDate; d.setDate(d.getDate() + 1)) {
-        this.dateList.push(d.toLocaleDateString());
-      }
-    }
-    else {
-      this.dateList.push(data.fromDate.toLocaleDateString());
-      t = null;
-    }
-    data.fromDate = f;
-    data.toDate = t;
-    this.defectListModelData.forEach(dl => {
-      dl.amounts = [];
-      this.dateList.forEach(d => {
-        dl.amounts.push({ editMode: false, qty: 0 });
-      });
-    });
-    this.showGrid = false;
-    this.http.postData(API_ENDPOINTS.getDHUByDate, data).subscribe(response => {
-      if (response) {
-        this.showGrid = true;
-        response.forEach(item => {
-          const c: CheckedModel = new CheckedModel();
-          c.amount = item.amount;
-          c.checkId = item._id;
-          c.date = item.date;
-          c.dateString = item.dateString;
-          c.deptId = item.department;
-          c.deptName = this.departments.find(d => d.value === item.department).text;
-          c.userId = item.user;
-          this.checkIdList.push(item._id);
-          this.dhuList.push(c);
-        });
-        this.getDefectDataByCheckedIds();
-      }
-    }, e => {
-      this.utils.showErrorMessage(e.error.message);
-    });
-
-
-  }
-
-  getDefectDataByCheckedIds(): void {
-    const data: any = {
-      ids: this.checkIdList
-    };
-    this.http.postData(API_ENDPOINTS.getDefectDataByCheckedIds, data).subscribe(response => {
-      if (response) {
-        this.dhuList.forEach(dhu => {
-          this.defectListModelData.forEach(dl => {
-            const i = response.findIndex(r => r.checked === dhu.checkId && r.defect === dl.defect.value);
-            if (i !== -1) {
-              const di = this.dateList.findIndex(d => new Date(d).toLocaleDateString() === new Date(dhu.date).toLocaleDateString());
-              dl.amounts[di] = response[i].amount;
-            }
-          });
-        });
-        this.getOtherLists();
-      }
-    }, e => {
-      this.utils.showErrorMessage(e.error.message);
-    });
-  }
-
-  getOtherLists(): void {
-    this.defectListModelData.forEach((dl, dlIndex) => {
-      let totalByDefect = 0;
-      dl.amounts.forEach(d => {
-        totalByDefect += d.qty;
-      });
-      this.totalByDefectList.push(totalByDefect);
-    });
-
-    this.cumulativeList = this.totalByDefectList.reduce((a, e, i) => {
-      return a.length > 0 ? [...a, e + a[i - 1]] : [e];
-    }, []);
-
-    this.dateList.forEach((d, i) => {
-      let t = 0;
-      this.defectListModelData.forEach(dl => {
-        t += dl.amounts[i].qty;
-      });
-      this.totalDefects.push(t);
-    });
-  }
-
 
   prepareViewForm(): void {
     this.viewForm = this.formBuilder.group({
@@ -221,7 +138,6 @@ export class PlotGraphComponent implements OnInit {
 
   fetchData(data: ViewDataModel): void {
     this.solutions = [];
-    this.fetchDataForLineGraph(data);
     this.http.getData(API_ENDPOINTS.getSolutions).subscribe(response => {
       if (response) {
         let byDate: any[] = [];
@@ -249,7 +165,7 @@ export class PlotGraphComponent implements OnInit {
             this.solutions[index].amount += item.amount;
           }
         });
-        this.solutions.sort((a, b) => (a.defectName > b.defectName) ? 1 : ((b.defectName > a.defectName) ? -1 : 0));
+        this.solutions.sort((a, b) => (b.amount - a.amount));
         this.plotGraph();
         this.showGrid = true;
       }
@@ -260,10 +176,21 @@ export class PlotGraphComponent implements OnInit {
   }
 
   plotGraph(): void {
-    console.log(this.precentageList);
+    this.precentageList = [];
+    this.cumulativeList = [];
     const dataList = this.solutions.map(s => s.amount);
+    const total = dataList.reduce((a, b) => a + b, 0);
+    dataList.forEach(d => {
+      const val = Math.ceil((d / total) * 100);
+      this.precentageList.push(val);
+    });
+    this.cumulativeList = this.precentageList.reduce((a, e, i) => {
+      return a.length > 0 ? [...a, e + a[i - 1]] : [e];
+    }, []);
+    this.cumulativeList = this.cumulativeList.map(i => i > 100 ? 100 : i);
     this.barChartData = [
-      { data: dataList, label: 'Amount' }
+      { data: dataList, label: 'Amount' },
+      { data: this.cumulativeList, label: 'Cumulative', type: 'line', yAxisID: 'y-axis-1' }
     ];
     this.barChartLabels = this.solutions.map(s => s.defectName);
   }
