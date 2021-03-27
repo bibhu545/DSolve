@@ -26,10 +26,11 @@ export class ViewDataComponent implements OnInit {
   cumulativeList: number[] = [];
   precentageList: number[] = [];
   totalDefects: number[] = [];
-  auditedPieces: number[] = [];
+  auditedPieces: DHUModelList[] = [];
   totalByDefectList: number[] = [];
   showGrid = false;
   x: ViewDataModel = new ViewDataModel();
+  userType: number;
 
   constructor(
     private http: HttpService,
@@ -44,6 +45,7 @@ export class ViewDataComponent implements OnInit {
     }
     else {
       this.userData = this.cookieService.getUserdataFromCookies();
+      this.userType = this.cookieService.getUserType();
       this.prepareViewForm();
       this.http.getData(API_ENDPOINTS.getDepartments).subscribe(response => {
         if (response) {
@@ -150,13 +152,33 @@ export class ViewDataComponent implements OnInit {
           this.checkIdList.push(item._id);
           this.dhuList.push(c);
         });
+        this.dateList.forEach(date => {
+          const index = this.dhuList.findIndex(dhu => new Date(dhu.date).toLocaleDateString() === new Date(date).toLocaleDateString());
+          if (index === -1) {
+            this.auditedPieces.push({
+              amount: 0,
+              dateString: new Date(date).toISOString().slice(0, 10),
+              editMode: false,
+              deptId: this.x.deptId,
+              userId: this.userData.userId,
+              checkedId: null
+            });
+          } else {
+            this.auditedPieces.push({
+              amount: this.dhuList[index].amount,
+              dateString: new Date(date).toISOString().slice(0, 10),
+              editMode: false,
+              deptId: this.dhuList[index].deptId,
+              userId: this.userData.userId,
+              checkedId: this.dhuList[index].checkId
+            });
+          }
+        });
         this.getDefectDataByCheckedIds();
       }
     }, e => {
       this.utils.showErrorMessage(e.error.message);
     });
-
-
   }
 
   getDefectDataByCheckedIds(): void {
@@ -235,6 +257,17 @@ export class ViewDataComponent implements OnInit {
     return 0 + '%';
   }
 
+  makeEditMode(d: DefectAmountModel, j: number): void {
+    if (this.userType === 0) {
+      return;
+    }
+    if (this.auditedPieces[j]?.amount === 0) {
+      this.utils.showErrorMessage('Please update \'Audited Pieces\' data first.');
+      return;
+    }
+    d.editMode = true;
+  }
+
   goBack(): void {
     this.router.navigateByUrl('dashboard');
   }
@@ -289,6 +322,58 @@ export class ViewDataComponent implements OnInit {
     });
   }
 
+  makeEditDHU(item: DHUModelList): void {
+    if (this.userType === 0) {
+      return;
+    }
+    item.editMode = true;
+  }
+
+  editDHU(item: DHUModelList): void {
+    const d = new Date(item.dateString);
+    item.dateString = new Date(d.setDate(d.getDate() + 1)).toISOString().slice(0, 10);
+    this.http.postData(API_ENDPOINTS.addDHU, item).subscribe(response => {
+      if (response) {
+        this.utils.showSuccessMessage('Data updated');
+        this.fetchDefectData(this.x);
+      }
+    }, e => {
+      this.resetViewForm();
+      this.utils.showErrorMessage(e.error.message);
+    });
+  }
+
+  deleteDHU(item: DHUModelList): void {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const data: any = {
+          id: item.checkedId
+        };
+        this.http.postData(API_ENDPOINTS.deleteDHU, data).subscribe(response => {
+          if (response) {
+            this.fetchDefectData(this.x);
+            Swal.fire(
+              'Deleted!',
+              'Data has been deleted.',
+              'success'
+            );
+          }
+        }, e => {
+          this.resetViewForm();
+          this.utils.showErrorMessage(e.error.message);
+        });
+      }
+    });
+  }
+
 }
 
 export class DefectListModel {
@@ -303,4 +388,13 @@ export class DefectAmountModel {
   checked?: string;
   defect?: string;
   user?: string;
+}
+
+export class DHUModelList {
+  amount: number;
+  dateString: string;
+  editMode = false;
+  userId: string;
+  deptId: string;
+  checkedId: string;
 }

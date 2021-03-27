@@ -19,7 +19,8 @@ export const API_ENDPOINTS = {
     getDefectData: BaseUrl + '/api/dsolve/operations/get-defectdata',
     getDHUByDate: BaseUrl + '/api/dsolve/operations/get-dhu-bydate',
     getDefectDataByCheckedIds: BaseUrl + '/api/dsolve/operations/get-defectdata-bychecked-ids',
-    getSolutions: BaseUrl + '/api/dsolve/operations/get-solutions'
+    getSolutions: BaseUrl + '/api/dsolve/operations/get-solutions',
+    deleteDHU: BaseUrl + '/api/dsolve/operations/delete-dhu'
 };
 
 export const USER_TYPES = {

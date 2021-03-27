@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AccountService } from 'src/app/Services/account.service';
 import { CookieService } from 'src/app/Services/cookie.service';
 import { HttpService } from 'src/app/Services/http.service';
-import { RegisterModel, UserModel } from 'src/app/Utils/Models';
+import { LoginResponseModel, RegisterModel, UserModel } from 'src/app/Utils/Models';
 import { API_ENDPOINTS, Utils } from 'src/app/Utils/Utils';
 
 @Component({
@@ -70,6 +70,7 @@ export class EditProfileComponent implements OnInit {
       userData.userId = this.userData.userId;
       this.http.postData(API_ENDPOINTS.editProfile, userData).subscribe(response => {
         if (response) {
+          response.userId = response._id;
           this.cookieService.saveLoginDataInCookies(response);
           this.utils.showSuccessMessage('Profile Updated');
         }

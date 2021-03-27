@@ -44,7 +44,7 @@
                         <thead>
                             <tr>
                                 <th>Sl No.</th>
-                                <th>Defect Ctegory</th>
+                                <th style="min-width: 120px;">Defect Ctegory</th>
                                 <th *ngFor="let item of dateList" [textContent]="item"></th>
                                 <th>Total</th>
                                 <th>Cumulative</th>
@@ -55,9 +55,9 @@
                             <tr *ngFor="let item of defectListModelData;let i = index">
                                 <td [textContent]="i + 1"></td>
                                 <td [textContent]="item.defect.text"></td>
-                                <td *ngFor="let d of item.amounts;let j = index" class="cursor-pointer">
-                                    <span class="text-col" *ngIf="!d.editMode" (click)="d.editMode= true">{{d.qty}}</span>
-                                    <ng-container *ngIf="d.editMode">
+                                <td *ngFor="let d of item.amounts;let j = index">
+                                    <span class="text-col cursor-pointer" *ngIf="!d.editMode" (click)="makeEditMode(d, j)">{{d.qty}}</span>
+                                    <ng-container *ngIf="d.editMode && userType === 1">
                                         <div class="input-group">
                                             <input type="number" class="form-control input-sm" placeholder="Amount"
                                                 [(ngModel)]="d.qty" name="amount" style="width: 70px;">
@@ -69,7 +69,7 @@
                                                     (click)="d.editMode = false">
                                                     <i class="far fa-times-circle"></i>
                                                 </button>
-                                                <button class="btn btn-danger btn-sm" type="button" (click)="deleteDefectData(d)">
+                                                <button class="btn btn-danger btn-sm" type="button" *ngIf="d.qty !== 0" (click)="deleteDefectData(d)">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </div>
@@ -91,7 +91,27 @@
                             <tr>
                                 <td></td>
                                 <th>Audited Pieces</th>
-                                <td *ngFor="let item of dateList">{{getAuditedPieces(item)}}</td>
+                                <td *ngFor="let item of auditedPieces">
+                                    <span class="text-col cursor-pointer" *ngIf="!item.editMode" (click)="makeEditDHU(item)">{{item.amount}}</span>
+                                    <ng-container *ngIf="item.editMode && userType === 1">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control input-sm" placeholder="Amount"
+                                                [(ngModel)]="item.amount" name="amount" style="width: 80px;">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary btn-sm" type="button" (click)="editDHU(item)">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </button>
+                                                <button class="btn btn-primary btn-sm" type="button"
+                                                    (click)="item.editMode = false">
+                                                    <i class="far fa-times-circle"></i>
+                                                </button>
+                                                <button class="btn btn-danger btn-sm" type="button" *ngIf="item.amount !== 0" (click)="deleteDHU(item)">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

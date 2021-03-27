@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
 
   utils: Utils = new Utils();
   userData: UserModel = new UserModel();
+  userType: number;
 
   constructor(
     private router: Router,
@@ -25,10 +26,15 @@ export class DashboardComponent implements OnInit {
     }
     else {
       this.userData = this.cookieService.getUserdataFromCookies();
+      this.userType = this.cookieService.getUserType();
     }
   }
 
   addDHU(): void {
+    if (this.userType === 0) {
+      this.utils.showErrorMessage('Please login as a Quality Manager to update information.');
+      return;
+    }
     this.router.navigateByUrl('/add-dhu');
   }
 
