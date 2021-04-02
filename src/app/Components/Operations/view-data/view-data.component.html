@@ -57,7 +57,7 @@
                                 <td [textContent]="item.defect.text"></td>
                                 <td *ngFor="let d of item.amounts;let j = index">
                                     <span class="text-col cursor-pointer" *ngIf="!d.editMode" (click)="makeEditMode(d, j)">{{d.qty}}</span>
-                                    <ng-container *ngIf="d.editMode && userType === 1">
+                                    <ng-container *ngIf="d.editMode">
                                         <div class="input-group">
                                             <input type="number" class="form-control input-sm" placeholder="Amount"
                                                 [(ngModel)]="d.qty" name="amount" style="width: 70px;">
@@ -93,7 +93,7 @@
                                 <th>Audited Pieces</th>
                                 <td *ngFor="let item of auditedPieces">
                                     <span class="text-col cursor-pointer" *ngIf="!item.editMode" (click)="makeEditDHU(item)">{{item.amount}}</span>
-                                    <ng-container *ngIf="item.editMode && userType === 1">
+                                    <ng-container *ngIf="item.editMode">
                                         <div class="input-group">
                                             <input type="number" class="form-control input-sm" placeholder="Amount"
                                                 [(ngModel)]="item.amount" name="amount" style="width: 80px;">

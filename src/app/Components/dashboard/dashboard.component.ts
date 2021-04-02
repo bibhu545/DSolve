@@ -31,8 +31,8 @@ export class DashboardComponent implements OnInit {
   }
 
   addDHU(): void {
-    if (this.userType === 0) {
-      this.utils.showErrorMessage('Please login as a Quality Manager to update information.');
+    if (this.userType === 2) {
+      this.utils.showErrorMessage('Please login as a Quality Manager or Admin to update information.');
       return;
     }
     this.router.navigateByUrl('/add-dhu');

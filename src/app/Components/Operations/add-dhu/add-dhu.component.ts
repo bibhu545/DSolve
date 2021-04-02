@@ -124,7 +124,7 @@ export class AddDHUComponent implements OnInit {
   prepareDefectForm(): void {
     this.defectForm = this.formBuilder.group({
       defect: new FormControl('', [Validators.required]),
-      amount: new FormControl('', [Validators.required]),
+      amount: new FormControl('0', [Validators.required]),
       defectName: new FormControl('', [Validators.required])
     });
   }

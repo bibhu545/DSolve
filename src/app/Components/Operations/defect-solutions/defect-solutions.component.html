@@ -86,8 +86,8 @@
                                     <input type="text" class="form-control" [(ngModel)]="item.name" name="name" />
                                 </td>
                                 <td *ngIf="item.editMode">
-                                    <input type="text" class="form-control" [(ngModel)]="item.solution"
-                                        name="solution" />
+                                    <textarea type="text" rows="1" class="form-control" [(ngModel)]="item.solution"
+                                        name="solution"></textarea>
                                 </td>
                                 <td>
                                     <div class="btn-group mr-2" role="group" aria-label="First group">

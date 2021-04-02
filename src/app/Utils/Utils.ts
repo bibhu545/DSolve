@@ -25,7 +25,8 @@ export const API_ENDPOINTS = {
 
 export const USER_TYPES = {
     admin: 0,
-    operator: 1
+    operator: 1,
+    Others: 2
 };
 
 export class Utils {

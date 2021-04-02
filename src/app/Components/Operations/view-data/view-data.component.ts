@@ -192,8 +192,10 @@ export class ViewDataComponent implements OnInit {
             const i = response.findIndex(r => r.checked === dhu.checkId && r.defect === dl.defect.value);
             if (i !== -1) {
               const di = this.dateList.findIndex(d => new Date(d).toLocaleDateString() === new Date(dhu.date).toLocaleDateString());
-              dl.amounts[di].qty = response[i].amount;
-              dl.amounts[di].ddId = response[i]._id;
+              if (di !== -1) {
+                dl.amounts[di].qty = response[i].amount;
+                dl.amounts[di].ddId = response[i]._id;
+              }
             }
           });
         });
@@ -258,7 +260,8 @@ export class ViewDataComponent implements OnInit {
   }
 
   makeEditMode(d: DefectAmountModel, j: number): void {
-    if (this.userType === 0) {
+    if (this.userType === 2) {
+      this.utils.showErrorMessage('Please login as a Quality Manager or Admin to update information.');
       return;
     }
     if (this.auditedPieces[j]?.amount === 0) {
@@ -323,7 +326,8 @@ export class ViewDataComponent implements OnInit {
   }
 
   makeEditDHU(item: DHUModelList): void {
-    if (this.userType === 0) {
+    if (this.userType === 2) {
+      this.utils.showErrorMessage('Please login as a Quality Manager or Admin to update information.');
       return;
     }
     item.editMode = true;
