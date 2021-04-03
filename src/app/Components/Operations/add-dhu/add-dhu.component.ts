@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { CookieService } from 'src/app/Services/cookie.service';
 import { HttpService } from 'src/app/Services/http.service';
-import { CheckedModel, CompleteDataModel, DDLModel, DefectDataModel, UserModel } from 'src/app/Utils/Models';
+import { CheckedModel, CompleteDataModel, DDLModel, DefectDataModel, DefectModel, UserModel } from 'src/app/Utils/Models';
 import { API_ENDPOINTS, Utils } from 'src/app/Utils/Utils';
 
 @Component({
@@ -147,6 +147,30 @@ export class AddDHUComponent implements OnInit {
     if (this.showAddDefect) {
       defectData.defect = '0';
       this.defectForm.get('defect').setValue('0');
+      const addDefectData: DefectModel = {
+        deptId: this.completeData.checkedData.deptId,
+        defectId: null,
+        name: this.defectForm.get('defectName').value,
+        solution: 'No solution available.'
+      };
+      this.http.postData(API_ENDPOINTS.addDefect, addDefectData).subscribe(response => {
+        if (response) {
+          this.showAddDefect = false;
+          this.fetchDefectList(this.completeData.checkedData.deptId);
+          this.defectForm.reset();
+          this.defectForm.get('defect').setValue('');
+          this.getDefectData();
+          this.utils.showSuccessMessage('New defect added');
+        }
+      }, e => {
+        this.showAddDefect = false;
+        this.fetchDefectList(this.completeData.checkedData.deptId);
+        this.defectForm.reset();
+        this.defectForm.get('defect').setValue('');
+        this.getDefectData();
+        this.utils.showErrorMessage(e.error.message);
+      });
+      return;
     }
     else {
       this.defectForm.get('defectName').setValue('0');

@@ -58,7 +58,7 @@ export class DefectDataModel {
 export class DefectModel {
     name: string;
     deptId: string;
-    solution: string;
+    solution?: string;
     defectId: string;
     editMode?: boolean;
 }
