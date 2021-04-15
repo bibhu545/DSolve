@@ -1,13 +1,22 @@
 .circle{
     cursor: pointer;
-    border: 1px solid #FF5E14;
-    padding: 40px 15px;
+    border: 1px solid rgba(0,0,0, 0.9);
+    padding: 60px 25px;
     text-align: center;
-    transition: all 0.2s;
+    background: rgba(0,0,0, 0.6);
+    color: white;
+    font-size: 1.1em;
 }
 
-.circle:hover{
-    box-shadow: 5px 8px 10px #888888;
+.bg-dash{
+    background-position: center center;
+    background-size: cover;
+    transition: all 0.1s;
+}
+.bg-dash:hover{
+    transform: scale(1.1);
+    position: relative;
+    z-index: 9999;
 }
 
 .col-4 {
@@ -23,5 +32,11 @@
 }
 
 i{
-    color: #FF5E14;
+    color: white;
+}
+.circle:hover {
+    color: aquamarine;
+}
+.i:hover {
+    color: aquamarine;
 }

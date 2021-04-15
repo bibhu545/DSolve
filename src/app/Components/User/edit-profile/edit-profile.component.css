@@ -1,6 +1,12 @@
 .custom-body{
     padding-top: 7%;
+    background: url('../../../../assets/bckgr.jpg') center center;
+    background-size: cover;
+    background-attachment: fixed;
 }
 .btn-primary{
     width: 130px;
+}
+input{
+    border: 1px solid gray;
 }

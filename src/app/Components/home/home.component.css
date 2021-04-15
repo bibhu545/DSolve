@@ -1,13 +1,14 @@
-.custom-body{
+/* .custom-body{
     padding-top: 4%;
-}
+} */
 .hero {
     background: url('../../../assets/well.jpg');
+    background-attachment: fixed;
     height: 400px;
     background-size: cover;
     background-repeat: no-repeat;
-    margin-top: 20px;
-    border-radius: 10px;
+    /* margin-top: 20px; */
+    /* border-radius: 10px; */
     background-position: 0px -80px;
 }
 .hero-content{
@@ -17,8 +18,8 @@
     background: rgba(0, 0, 0, 0.7);
     height: 400px;
     width: 100%;
-    border: 1px solid #FF5E14;
-    border-radius: 10px;
+    /* border: 1px solid #FF5E14;
+    border-radius: 10px; */
 }
 .hero-brand-text{
     color: white;

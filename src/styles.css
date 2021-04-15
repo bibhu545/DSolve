@@ -11,7 +11,7 @@ body {
 .custom-body{
     padding-top: 57px;
     min-height: calc(100vh - 57px);
-    background: linear-gradient(-45deg, rgb(146, 255, 255), white, white, white, white, rgb(146, 255, 255));
+    background: linear-gradient(-45deg, pink, white, white, rgb(146, 255, 255));
 }
 .shadow{
     box-shadow: 5px 8px 10px #888888;

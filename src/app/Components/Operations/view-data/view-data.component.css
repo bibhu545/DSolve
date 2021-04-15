@@ -1,5 +1,8 @@
 .custom-body{
     padding-top: 7%;
+    background: url('../../../../assets/bckgr.jpg') center center;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .align{
