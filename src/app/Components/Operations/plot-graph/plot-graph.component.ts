@@ -178,7 +178,12 @@ export class PlotGraphComponent implements OnInit {
   plotGraph(): void {
     this.precentageList = [];
     this.cumulativeList = [];
-    const dataList = this.solutions.map(s => s.amount);
+    const dataList = [];
+    this.solutions.map(s => s.amount).forEach((element, index) => {
+      if (index < 5) {
+        dataList.push(element);
+      }
+    });
     const total = dataList.reduce((a, b) => a + b, 0);
     dataList.forEach(d => {
       const val = Math.ceil((d / total) * 100);
@@ -192,7 +197,12 @@ export class PlotGraphComponent implements OnInit {
       { data: dataList, label: 'Amount' },
       { data: this.cumulativeList, label: 'Cumulative', type: 'line', yAxisID: 'y-axis-1' }
     ];
-    this.barChartLabels = this.solutions.map(s => s.defectName);
+    this.barChartLabels = [];
+    this.solutions.map(s => s.defectName).forEach((element, index) => {
+      if (index < 5) {
+        this.barChartLabels.push(element);
+      }
+    });
   }
 
   goBack(): void {

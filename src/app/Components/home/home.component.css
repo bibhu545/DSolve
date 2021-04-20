@@ -1,10 +1,10 @@
-/* .custom-body{
-    padding-top: 4%;
-} */
+.custom-body{
+    padding-top: 0;
+}
 .hero {
     background: url('../../../assets/well.jpg');
     background-attachment: fixed;
-    height: 400px;
+    height: calc(100vh - 57px);
     background-size: cover;
     background-repeat: no-repeat;
     /* margin-top: 20px; */
@@ -16,7 +16,7 @@
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.7);
-    height: 400px;
+    height: calc(100vh - 57px);
     width: 100%;
     /* border: 1px solid #FF5E14;
     border-radius: 10px; */
@@ -24,13 +24,15 @@
 .hero-brand-text{
     color: white;
     animation: changeColor 3s infinite;
+    font-family: 'Monoton', cursive;
+    font-size: 44px;
 }
 @keyframes changeColor {
     50% {color: #FF5E14;}
 }
 .hero-content-wrapper{
     position: relative;
-    height: 400px;
+    height: calc(100vh - 57px);
     width: 100%;
 }
 .hero-text{
@@ -112,4 +114,14 @@
 }
 hr{
     background-color: #FF5E14;
+}
+.know-more{
+    border-radius: 20px;
+    transition: transform .1s;
+    background-color: #FF5E14;
+    border: 0;
+    padding: 7px 40px;
+}
+.know-more:hover {
+    transform: scale(1.1);
 }

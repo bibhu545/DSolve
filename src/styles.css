@@ -1,5 +1,6 @@
 @import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 @import url('https://fonts.googleapis.com/css?family=Rokkitt|Yeon+Sung&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
 
 html, body { height: 100%; }
 body { 
@@ -11,7 +12,8 @@ body {
 .custom-body{
     padding-top: 57px;
     min-height: calc(100vh - 57px);
-    background: linear-gradient(-45deg, pink, white, white, rgb(146, 255, 255));
+    /* background: linear-gradient(-45deg, pink, white, white, rgb(146, 255, 255)); */
+    background: linear-gradient(-45deg, #a27fd5, white, white, #91eae4);
 }
 .shadow{
     box-shadow: 5px 8px 10px #888888;
