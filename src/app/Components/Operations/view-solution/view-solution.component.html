@@ -30,9 +30,9 @@
                     </div>
                 </div>
                 <div class="col-md-3 col-12 align">
-                    <button type="submit" class="btn btn-primary mr-1">Get Solutions</button>
-                    <button type="button" class="btn btn-primary mr-1" (click)="resetViewForm()">Reset</button>
-                    <button type="button" class="btn btn-primary" (click)="goBack()">Back</button>
+                    <button type="submit" class="btn btn-primary mr-1 font-sm">Get Solutions</button>
+                    <button type="button" class="btn btn-primary mr-1 font-sm" (click)="resetViewForm()">Reset</button>
+                    <button type="button" class="btn btn-primary font-sm" (click)="goBack()">Back</button>
                 </div>
             </div>
         </form>
@@ -45,7 +45,7 @@
             <div class="col-2"></div>
             <div class="col-8">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered bg-white table-bg text-white">
                         <thead>
                             <tr>
                                 <th style="width: 30%">Defect Name</th>
@@ -54,8 +54,8 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of solutions">
-                                <td>{{item.defectName}}</td>
-                                <td>{{item.solution}}</td>
+                                <th>{{item.defectName}}</th>
+                                <th>{{item.solution}}</th>
                             </tr>
                         </tbody>
                     </table>

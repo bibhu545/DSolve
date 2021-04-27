@@ -100,6 +100,7 @@ export class ViewSolutionComponent implements OnInit {
     this.solutions = [];
     this.http.getData(API_ENDPOINTS.getSolutions).subscribe(response => {
       if (response) {
+        response = response.filter(i => i.checkedDetails[0].department === this.viewForm.get('deptId').value);
         this.showGrid = true;
         let byDate: any[] = [];
         if (data.toDate) {
