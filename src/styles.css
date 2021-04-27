@@ -1,11 +1,13 @@
 @import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
-@import url('https://fonts.googleapis.com/css?family=Rokkitt|Yeon+Sung&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orelega+One&display=swap');
 
 html, body { height: 100%; }
 body { 
     margin: 0; 
-    font-family: 'Rokkitt', cursive !important; 
+    /* font-family: 'Rokkitt', cursive !important;  */
+    font-family: 'Roboto Slab', serif;
     font-size: 1.05em !important;
     overflow-x: hidden;
 }
