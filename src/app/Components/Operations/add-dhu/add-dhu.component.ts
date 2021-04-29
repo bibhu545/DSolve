@@ -52,7 +52,7 @@ export class AddDHUComponent implements OnInit {
 
   fetchDefectList(dept: string): void {
     this.defectList = [];
-    this.http.postData(API_ENDPOINTS.getDefects, {deptId: dept}).subscribe(response => {
+    this.http.postData(API_ENDPOINTS.getDefects, { deptId: dept }).subscribe(response => {
       if (response) {
         this.defects = response.map(item => new DDLModel(item.name, item._id));
       }
@@ -217,5 +217,13 @@ export class AddDHUComponent implements OnInit {
 
   getDefectFormControl(name): any {
     return this.defectForm.get(name);
+  }
+
+  checkSunday(date: any): void {
+    const day = new Date(date).getUTCDay();
+    if ([6, 0].includes(day)) {
+      this.checkedForm.get('date').setValue('');
+      this.utils.showErrorMessage('Sundays not allowed');
+    }
   }
 }

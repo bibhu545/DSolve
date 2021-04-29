@@ -128,7 +128,7 @@ export class ViewSolutionComponent implements OnInit {
           }
         });
         this.solutions.sort((a, b) => b.amount - a.amount);
-        this.solutions = this.solutions.filter((item, index) => index < 3);
+        this.solutions = this.solutions.filter((item, index) => index < 5);
       }
     }, e => {
       this.showGrid = false;

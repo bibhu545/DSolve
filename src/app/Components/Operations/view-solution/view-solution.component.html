@@ -36,10 +36,13 @@
                 </div>
             </div>
         </form>
-        <div class="row" *ngIf="showGrid">
+        <div class="text-center" *ngIf="showGrid && solutions.length === 0">
+            No defects added to this department.
+        </div>
+        <div class="row" *ngIf="showGrid && solutions.length > 0">
             <div class="col-12 text-center">
                 <h4 class="text-center">
-                    Solution to top 3 defects for selected time period
+                    Solution to top {{solutions.length > 5 ? 5 : solutions.length}} defects for selected time period
                 </h4>
             </div>
             <div class="col-2"></div>
