@@ -221,7 +221,7 @@ export class AddDHUComponent implements OnInit {
 
   checkSunday(date: any): void {
     const day = new Date(date).getUTCDay();
-    if ([6, 0].includes(day)) {
+    if ([0].includes(day)) {
       this.checkedForm.get('date').setValue('');
       this.utils.showErrorMessage('Sundays not allowed');
     }
